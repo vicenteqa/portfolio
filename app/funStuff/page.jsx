@@ -1,6 +1,6 @@
 'use client';
 
-import { m, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import React, { useState } from 'react';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -22,40 +22,35 @@ import WorkSliderBtns from '@/components/WorkSliderBtns';
 const projects = [
   {
     num: '01',
-    category: 'frontend',
-    title: 'project 1',
+    title: 'Automate Booking of Gym Activities',
     description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    stack: [{ name: 'Html 5' }, { name: 'Css 3' }, { name: 'Javascript' }],
-    image: '/assets/work/thumb1.png',
-    live: '',
-    github: '',
+      'With this mini-project, I automated the booking of collective activities at my gym.',
+    stack: [
+      { name: 'Typescript' },
+      { name: 'Playwright' },
+      { name: 'Github Actions' },
+    ],
+    image: '/assets/funStuff/thumb1.png',
+    article:
+      'https://dev.to/vicentecph/how-i-automated-the-booking-of-group-crossfit-or-any-other-activity-classes-at-my-gym-with-playwright-15pd',
+    github: 'https://github.com/vicenteqa/book-gym-class',
   },
   {
     num: '02',
-    category: 'full stack',
-    title: 'project 2',
+    title: 'This portfolio itself!',
     description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    stack: [{ name: 'Next.js' }, { name: 'Tailwind.css' }, { name: 'Node.js' }],
-    image: '/assets/work/thumb2.png',
-    live: '',
-    github: '',
-  },
-  {
-    num: '03',
-    category: 'frontend',
-    title: 'project 3',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    stack: [{ name: 'Next.js' }, { name: 'Tailwind.css' }],
-    image: '/assets/work/thumb3.png',
-    live: '',
-    github: '',
+      'Personal portfolio done with Next.js, Tailwind CSS and tested with Playwright.',
+    stack: [
+      { name: 'Typescript' },
+      { name: 'Playwright' },
+      { name: 'Next.js' },
+    ],
+    image: '/assets/funStuff/thumb2.png',
+    github: 'https://github.com/vicenteqa/portfolio',
   },
 ];
 
-const Work = () => {
+const FunStuff = () => {
   const [project, setProject] = useState(projects[0]);
   const handleSlideChange = (swiper) => {
     // get the current slide index
@@ -80,9 +75,9 @@ const Work = () => {
               <div className="text-8xl leading-none font-extrabold text-transparent text-outline">
                 {project.num}
               </div>
-              {/*project category*/}
+              {/*project title*/}
               <h2 className="text-[42px] font-bold leading-none text-white group-hover:text-accent transition-all duration-500 capitalize">
-                {project.category} project
+                {project.title}
               </h2>
               {/*project description*/}
               <p className="text-white/60">{project.description}</p>
@@ -101,18 +96,20 @@ const Work = () => {
               {/*buttons*/}
               <div className="flex items-center gap-4">
                 {/* live project button */}
-                <Link href={project.live}>
-                  <TooltipProvider delayDuration={100}>
-                    <Tooltip>
-                      <TooltipTrigger className="w-[70px] h-[70px] rounded-full bg-white/5 flex justify-center items-center group">
-                        <BsArrowUpRight className="text-white text-3xl group-hover:text-accent" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Live project</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </Link>
+                {project.article && (
+                  <Link href={project.article}>
+                    <TooltipProvider delayDuration={100}>
+                      <Tooltip>
+                        <TooltipTrigger className="w-[70px] h-[70px] rounded-full bg-white/5 flex justify-center items-center group">
+                          <BsArrowUpRight className="text-white text-3xl group-hover:text-accent" />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Article</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </Link>
+                )}
                 {/* github project button */}
                 <Link href={project.github}>
                   <TooltipProvider delayDuration={100}>
@@ -139,11 +136,11 @@ const Work = () => {
               {projects.map((project, index) => {
                 return (
                   <SwiperSlide key={index} className="w-full">
-                    <div className="h-[460px] relative group flex justify-center items-center bg-pink-50/20">
+                    <div className="h-[460px] relative group flex justify-center items-center ">
                       {/* overlay */}
-                      <div className="absolute top-0 bottom-0 w-full h-full bg-black/10 z-10"></div>
+                      <div className="absolute top-0 bottom-0 w-full h-full bg-black/10 z-10 border-10 rounded-xl"></div>
                       {/* image */}
-                      <div className="relative w-full h-full">
+                      <div className="relative w-full h-full border-[5px] border-accent rounded-xl overflow-hidden">
                         <Image
                           src={project.image}
                           fill
@@ -168,4 +165,4 @@ const Work = () => {
   );
 };
 
-export default Work;
+export default FunStuff;
