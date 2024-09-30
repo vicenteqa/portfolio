@@ -20,7 +20,7 @@
     "emailjs-com": "^3.2.0",
     "framer-motion": "^11.5.4",
     "lucide-react": "^0.439.0",
-    "next": "14.2.8",
+    "next": "^14.2.13",
     "prettier": "^3.3.3",
     "react": "^18",
     "react-countup": "^6.5.3",
