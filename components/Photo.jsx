@@ -29,6 +29,7 @@ const Photo = () => {
             fill
             alt-=""
             className="object-contain"
+            data-testid="photo"
           />
         </motion.div>
 
