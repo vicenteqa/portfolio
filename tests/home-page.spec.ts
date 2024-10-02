@@ -11,7 +11,7 @@ test('Portfolio has the expected title', async () => {
   await expect(homePage.page).toHaveTitle(/Vicente Ruiz - Portfolio/);
 });
 
-test.only('Home Page - Has the expected appearance', async () => {
+test('Home Page - Has the expected appearance', async () => {
   await homePage.waitForPhotoContainer();
   await expect(homePage.page).toHaveScreenshot({ maxDiffPixelRatio: 0.05 });
 });
