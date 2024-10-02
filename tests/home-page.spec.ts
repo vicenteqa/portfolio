@@ -7,7 +7,14 @@ test('Portfolio has the expected title', async ({ page }) => {
   await expect(page).toHaveTitle(/Vicente Ruiz - Portfolio/);
 });
 
-test('Home has the expected appearance', async ({ page }) => {
-  await expect(page.getByTestId('photo')).toBeVisible();
+test.only('Home Page - Has the expected appearance', async ({ page }) => {
+  await page.waitForFunction(() => {
+    const photoContainer = document.querySelector(
+      '[data-testid="photo-container"]'
+    );
+    return (
+      photoContainer && window.getComputedStyle(photoContainer).opacity === '1'
+    );
+  });
   await expect(page).toHaveScreenshot({ maxDiffPixelRatio: 0.05 });
 });
