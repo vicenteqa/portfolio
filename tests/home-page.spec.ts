@@ -8,5 +8,6 @@ test('Portfolio has the expected title', async ({ page }) => {
 });
 
 test('Home has the expected appearance', async ({ page }) => {
+  await expect(page.getByTestId('photo')).toBeVisible();
   await expect(page).toHaveScreenshot({ maxDiffPixelRatio: 0.05 });
 });
