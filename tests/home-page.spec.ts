@@ -7,7 +7,7 @@ test('Portfolio has the expected title', async ({ page }) => {
   await expect(page).toHaveTitle(/Vicente Ruiz - Portfolio/);
 });
 
-test.only('Home Page - Has the expected appearance', async ({ page }) => {
+test('Home Page - Has the expected appearance', async ({ page }) => {
   await page.waitForFunction(() => {
     const photoContainer = document.querySelector(
       '[data-testid="photo-container"]'
