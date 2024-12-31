@@ -1,12 +1,12 @@
 import axios from 'axios';
 import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({ path: '../../.env' });
 
 const clientId = process.env.SPOTIFY_CLIENT_ID;
+console.log(clientId);
 const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 
-// Función para refrescar el token de acceso
 async function refreshAccessToken() {
   const authOptions = {
     method: 'post',
@@ -35,7 +35,6 @@ async function refreshAccessToken() {
   }
 }
 
-// Función para obtener los álbumes favoritos
 async function getFavoriteAlbums() {
   const tokenData = await refreshAccessToken();
   if (!tokenData) {
@@ -62,8 +61,6 @@ async function getFavoriteAlbums() {
   }
 }
 
-// Llama a la función para obtener los álbumes favoritos
-
 export async function getFavoriteAlbumsSpecificData() {
   const favoriteAlbums = await getFavoriteAlbums();
   if (favoriteAlbums) {
@@ -78,7 +75,3 @@ export async function getFavoriteAlbumsSpecificData() {
     return albums;
   }
 }
-
-getFavoriteAlbumsSpecificData().then((albums) => {
-  console.log(albums);
-});

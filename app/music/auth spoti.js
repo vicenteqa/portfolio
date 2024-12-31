@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import fs from 'fs';
 import express from 'express';
 
-dotenv.config();
+dotenv.config({ path: '../../.env' });
 
 const app = express();
 const port = 4000;
