@@ -1,11 +1,7 @@
 import axios from 'axios';
-import dotenv from 'dotenv';
 
-dotenv.config({ path: '../../.env' });
-
-const clientId = process.env.SPOTIFY_CLIENT_ID;
-console.log(clientId);
-const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
+const clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
+const clientSecret = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_SECRET;
 
 async function refreshAccessToken() {
   const authOptions = {
@@ -17,7 +13,7 @@ async function refreshAccessToken() {
         'Basic ' +
         Buffer.from(clientId + ':' + clientSecret).toString('base64'),
     },
-    data: `grant_type=refresh_token&refresh_token=${process.env.SPOTIFY_REFRESH_TOKEN}`,
+    data: `grant_type=refresh_token&refresh_token=${process.env.NEXT_PUBLIC_SPOTIFY_REFRESH_TOKEN}`,
   };
 
   try {
