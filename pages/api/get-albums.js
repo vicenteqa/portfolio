@@ -61,7 +61,6 @@ export async function getFavoriteAlbumsSpecificData() {
   const favoriteAlbums = await getFavoriteAlbums();
   favoriteAlbums.map((album) => {
     if (album.album.name.toLowerCase().includes('remaste')) {
-      console.log(album.album.name);
     }
   });
   if (favoriteAlbums) {
