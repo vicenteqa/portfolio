@@ -38,7 +38,7 @@ async function getFavoriteAlbums() {
     return;
   }
 
-  const albumsUrl = 'https://api.spotify.com/v1/me/albums';
+  const albumsUrl = 'https://api.spotify.com/v1/me/albums?limit=50';
   const options = {
     headers: {
       Authorization: `Bearer ${tokenData.access_token}`,
@@ -59,15 +59,29 @@ async function getFavoriteAlbums() {
 
 export async function getFavoriteAlbumsSpecificData() {
   const favoriteAlbums = await getFavoriteAlbums();
+  favoriteAlbums.map((album) => {
+    if (album.album.name.toLowerCase().includes('remaste')) {
+      console.log(album.album.name);
+    }
+  });
   if (favoriteAlbums) {
-    const albums = favoriteAlbums.map((album) => {
+    // Mezclar los álbumes de forma aleatoria
+    const shuffledAlbums = favoriteAlbums.sort(() => Math.random() - 0.5);
+
+    // Seleccionar los primeros 20 álbumes después de mezclar
+    const albums = shuffledAlbums.slice(0, 35).map((album) => {
+      // Eliminar las partes del título que coinciden con los patrones de remasterización y año
+      const cleanName = album.album.name.replace(/\s?\(.*?\)$/g, '').trim();
+
       return {
-        name: album.album.name,
+        id: album.album.id,
+        name: cleanName,
         url: album.album.external_urls.spotify,
         cover: album.album.images[0].url,
         artists: album.album.artists.map((artist) => artist.name).join(', '),
       };
     });
+
     return albums;
   }
 }
