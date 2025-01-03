@@ -28,7 +28,13 @@ const SpotifyMusic = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <ClipLoader size={50} color={'#123abc'} loading={loading} />
+        {/* Updated Spinner with White Color and Accent Outline */}
+        <ClipLoader
+          size={80}
+          color={'#fff'}
+          loading={loading}
+          cssOverride={{ border: '6px solid #123abc', borderTopColor: '#fff' }}
+        />
       </div>
     );
   }
@@ -38,15 +44,18 @@ const SpotifyMusic = () => {
   }
 
   return (
-    <div className="p-6">
+    <div className="p-6 pb-12">
+      {' '}
+      {/* Added padding-bottom here */}
       <div className="max-w-screen-xl mx-auto">
         <h1 className="text-3xl font-bold mb-2 md:mb-3 lg:mb-4 text-left">
           Music
         </h1>
         <p className="text-white/60 mb-8">
           Explore my personal vinyl collection mapped to Spotify! The albums
-          displayed are pulled from the Spotify API. Reload to discover even
-          more!
+          displayed are pulled from the Spotify API, because few things reveal
+          more about someone than the music they listen to. Reload to discover
+          even more!
         </p>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
           {albums.map((album) => (
