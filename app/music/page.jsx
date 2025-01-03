@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { getFavoriteAlbumsSpecificData } from './get-albums.js';
+import { getFavoriteAlbumsSpecificData } from '../../pages/api/get-albums.js';
 import { ClipLoader } from 'react-spinners';
 import Image from 'next/image';
 
