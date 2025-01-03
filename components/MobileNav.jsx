@@ -8,9 +8,9 @@ import { Button } from './ui/button';
 
 const links = [
   { name: 'home', path: '/' },
-  // { name: 'services', path: '/services' },
   { name: 'resume', path: '/resume' },
   { name: 'fun stuff', path: '/funStuff' },
+  { name: 'music', path: '/music' },
 ];
 
 const MobileNav = () => {
