@@ -48,10 +48,10 @@ const Contact = () => {
 
     emailjs
       .send(
-        process.env.NEXT_PUBLIC_EMAIL_SERVICE_ID,
-        process.env.NEXT_PUBLIC_EMAIL_TEMPLATE_ID,
+        process.env.EMAIL_SERVICE_ID,
+        process.env.EMAIL_TEMPLATE_ID,
         formData,
-        process.env.NEXT_PUBLIC_EMAIL_SERVICE_UID
+        process.env.EMAIL_SERVICE_UID
       )
       .then(
         (result) => {
