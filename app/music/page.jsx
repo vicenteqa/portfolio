@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { getFavoriteAlbumsSpecificData } from '../../pages/api/get-albums.js';
+import jsonData from './music.json';
 import { ClipLoader } from 'react-spinners';
 import Image from 'next/image';
 
@@ -13,7 +13,7 @@ const SpotifyMusic = () => {
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
-        const data = await getFavoriteAlbumsSpecificData();
+        const data = jsonData.sort(() => Math.random() - 0.5);
         setAlbums(data || []);
       } catch (err) {
         setError(err.message);
