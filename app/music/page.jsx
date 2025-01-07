@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { ClipLoader } from 'react-spinners';
 import Image from 'next/image';
 
-const SpotifyMusic = (albumsData) => {
+const SpotifyMusic = () => {
   const [albums, setAlbums] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

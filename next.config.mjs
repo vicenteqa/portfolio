@@ -8,9 +8,10 @@ const nextConfig = {
     EMAIL_SERVICE_ID: process.env.EMAIL_SERVICE_ID,
     EMAIL_TEMPLATE_ID: process.env.EMAIL_TEMPLATE_ID,
     EMAIL_SERVICE_UID: process.env.EMAIL_SERVICE_UID,
+    BASE_URL: process.env.BASE_URL,
   },
   images: {
-    domains: ['i.scdn.co', 'open.spotify.com'],
+    domains: ['i.scdn.co'],
   },
 };
 
