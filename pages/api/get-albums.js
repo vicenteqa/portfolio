@@ -57,7 +57,7 @@ async function getFavoriteAlbums() {
   }
 }
 
-export async function getFavoriteAlbumsSpecificData() {
+async function getFavoriteAlbumsSpecificData() {
   const favoriteAlbums = await getFavoriteAlbums();
   favoriteAlbums.map((album) => {
     if (album.album.name.toLowerCase().includes('remaste')) {
@@ -83,4 +83,9 @@ export async function getFavoriteAlbumsSpecificData() {
 
     return albums;
   }
+}
+
+export default async function handler(req, res) {
+  const albums = await getFavoriteAlbumsSpecificData();
+  res.status(200).json(albums);
 }

@@ -1,11 +1,10 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { getFavoriteAlbumsSpecificData } from '../../pages/api/get-albums.js';
 import { ClipLoader } from 'react-spinners';
 import Image from 'next/image';
 
-const SpotifyMusic = () => {
+const SpotifyMusic = (albumsData) => {
   const [albums, setAlbums] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -13,7 +12,11 @@ const SpotifyMusic = () => {
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
-        const data = await getFavoriteAlbumsSpecificData();
+        const response = await fetch('/api/get-albums');
+        if (!response.ok) {
+          throw new Error('Failed to fetch albums');
+        }
+        const data = await response.json();
         setAlbums(data || []);
       } catch (err) {
         setError(err.message);
