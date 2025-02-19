@@ -13,5 +13,5 @@ test('Portfolio has the expected title', async () => {
 
 test('Home Page - Has the expected appearance', async () => {
   await homePage.waitForPhotoContainer();
-  await expect(homePage.page).toHaveScreenshot({ maxDiffPixelRatio: 0.05 });
+  await homePage.hasTheExpectedLayout();
 });
