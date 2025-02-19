@@ -56,11 +56,19 @@ const Contact = () => {
       .then(
         (result) => {
           console.log(result.text);
-          alert('Mensaje enviado con éxito');
+          alert('Message successfully sent!');
+          setFormData({
+            firstname: '',
+            lastname: '',
+            email: '',
+            phone: '',
+            topic: '',
+            message: '',
+          });
         },
         (error) => {
           console.log(error.text);
-          alert('Hubo un error al enviar el mensaje');
+          alert('There was an error sending the message');
         }
       );
   };
