@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import jsonData from './music.json';
 import { ClipLoader } from 'react-spinners';
 import Image from 'next/image';
 
@@ -13,8 +12,19 @@ const SpotifyMusic = () => {
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
-        const data = jsonData.sort(() => Math.random() - 0.5);
-        setAlbums(data || []);
+        const res = await fetch('/api/get-albums');
+        if (!res.ok) {
+          const errorData = await res.json();
+          throw new Error(errorData.error || 'Failed to fetch albums');
+        }
+        const data = await res.json();
+
+        if (Array.isArray(data)) {
+          setAlbums(data);
+        } else {
+          console.error('Data received is not an array:', data);
+          setError('Invalid data received from server.');
+        }
       } catch (err) {
         setError(err.message);
       } finally {
@@ -28,7 +38,6 @@ const SpotifyMusic = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        {/* Updated Spinner with White Color and Accent Outline */}
         <ClipLoader
           size={80}
           color={'#fff'}
@@ -43,9 +52,12 @@ const SpotifyMusic = () => {
     return <div>Error: {error}</div>;
   }
 
+  if (!Array.isArray(albums) || albums.length === 0) {
+    return <div>No albums found.</div>;
+  }
+
   return (
     <div className="p-6 pb-12">
-      {/* Added padding-bottom here */}
       <div className="max-w-screen-xl mx-auto">
         <h1 className="text-3xl font-bold mb-2 md:mb-3 lg:mb-4 text-left">
           Music
@@ -76,7 +88,6 @@ const SpotifyMusic = () => {
                     height={200}
                     className="object-cover w-full h-full transition-transform transform group-hover:scale-110 group-hover:rotate-3"
                   />
-                  {/* Text and background overlay visible only on hover */}
                   <div className="absolute bottom-0 left-0 right-0 p-3 bg-black/70 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <p className="text-sm font-semibold">{album.name}</p>
                     <p className="text-xs">{album.artists}</p>

@@ -64,12 +64,9 @@ export async function getFavoriteAlbumsSpecificData() {
     }
   });
   if (favoriteAlbums) {
-    // Mezclar los álbumes de forma aleatoria
     const shuffledAlbums = favoriteAlbums.sort(() => Math.random() - 0.5);
 
-    // Seleccionar los primeros 20 álbumes después de mezclar
     const albums = shuffledAlbums.slice(0, 35).map((album) => {
-      // Eliminar las partes del título que coinciden con los patrones de remasterización y año
       const cleanName = album.album.name.replace(/\s?\(.*?\)$/g, '').trim();
 
       return {
@@ -82,5 +79,19 @@ export async function getFavoriteAlbumsSpecificData() {
     });
 
     return albums;
+  }
+}
+
+export default async function handler(req, res) {
+  try {
+    const albums = await getFavoriteAlbumsSpecificData();
+    if (albums) {
+      res.status(200).json(albums);
+    } else {
+      res.status(500).json({ error: 'Failed to load albums' });
+    }
+  } catch (error) {
+    console.error('API Route Error:', error);
+    res.status(500).json({ error: 'Failed to fetch albums' });
   }
 }
