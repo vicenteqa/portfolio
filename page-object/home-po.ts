@@ -1,4 +1,5 @@
 import { type Page } from '@playwright/test';
+import { expect } from '@playwright/test';
 
 export class HomePage {
   readonly page: Page;
@@ -6,6 +7,7 @@ export class HomePage {
 
   constructor(page: Page) {
     this.page = page;
+    this.photoContainerSelector = '[data-testid="photo-container"]';
   }
 
   async goto() {
@@ -20,5 +22,8 @@ export class HomePage {
   }
 
   waitForPhotoContainer = () =>
-    this.waitForContainerFullyDisplayed('[data-testid="photo-container"]');
+    this.waitForContainerFullyDisplayed(this.photoContainerSelector);
+
+  hasTheExpectedLayout = () =>
+    expect(this.page).toHaveScreenshot({ maxDiffPixelRatio: 0.05 });
 }
