@@ -10,13 +10,13 @@ const Home = () => {
         <div className="flex flex-col xl:flex-row items-center justify-between xl:pt-8 xl:pb-24">
           {/* text */}
           <div className="text-center xl:text-left order-2 xl:order-none">
-            <span className="text-xl">
+            <span className="text-xl font-primary text-accent/80 tracking-wider uppercase text-sm font-medium mb-4 block">
               Software Development Engineer in Test
             </span>
             <h1 className="h1 mb-6">
-              Hello I'm <br /> <span className="text-accent">Vicente Ruiz</span>
+              Hello I'm <br /> <span className="text-gradient-accent">Vicente Ruiz</span>
             </h1>
-            <p className="max-w-[500px] mb-9 text-white/80">
+            <p className="max-w-[500px] mb-9 text-white/70 font-body text-lg leading-relaxed">
               I am a software test automation specialist with years of
               experience. I focus on optimizing quality processes and ensuring
               high standards through efficient automation techniques.

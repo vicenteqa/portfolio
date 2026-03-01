@@ -19,6 +19,8 @@ module.exports = {
     },
     fontFamily: {
       primary: 'var(--font-firaCode)',
+      display: 'var(--font-syne)',
+      body: 'var(--font-dmSans)',
     },
     extend: {
       colors: {
@@ -27,6 +29,12 @@ module.exports = {
           DEFAULT: '#29d4ff',
           hover: '#1d9bf0',
         },
+        amber: {
+          DEFAULT: '#fbbf24',
+          hover: '#f59e0b',
+        },
+        success: '#10b981',
+        error: '#ef4444',
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
