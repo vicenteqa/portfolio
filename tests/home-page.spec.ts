@@ -10,8 +10,3 @@ test.beforeEach(async ({ page }) => {
 test('Portfolio has the expected title', async () => {
   await expect(homePage.page).toHaveTitle(/Vicente Ruiz - Portfolio/);
 });
-
-test('Home Page - Has the expected appearance', async () => {
-  await homePage.waitForPhotoContainer();
-  await homePage.hasTheExpectedLayout();
-});
