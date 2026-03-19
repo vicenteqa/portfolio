@@ -28,7 +28,7 @@ const Photo = () => {
             priority
             quality={100}
             fill
-            alt-=""
+            alt="Vicente Ruiz profile photo"
             className="object-contain"
             data-testid="photo"
           />
