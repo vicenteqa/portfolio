@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import emailjs from 'emailjs-com';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -55,15 +54,17 @@ const Contact = () => {
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [toast, setToast] = useState({ show: false, message: '', type: 'success' });
+  const [toast, setToast] = useState({
+    show: false,
+    message: '',
+    type: 'success',
+  });
 
   const validateField = (name, value) => {
     switch (name) {
       case 'firstname':
       case 'lastname':
-        return value.trim().length < 2
-          ? 'Must be at least 2 characters'
-          : '';
+        return value.trim().length < 2 ? 'Must be at least 2 characters' : '';
       case 'email':
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return !emailRegex.test(value) ? 'Invalid email address' : '';
@@ -133,7 +134,7 @@ const Contact = () => {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Mark all fields as touched
@@ -159,63 +160,46 @@ const Contact = () => {
 
     setIsSubmitting(true);
 
-    // Check if EmailJS credentials are configured
-    const serviceId = process.env.EMAIL_SERVICE_ID;
-    const templateId = process.env.EMAIL_TEMPLATE_ID;
-    const userId = process.env.EMAIL_SERVICE_UID;
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-    if (!serviceId || !templateId || !userId) {
-      console.error('EmailJS credentials not configured. Please set up .env.local file.');
+      if (response.ok) {
+        setToast({
+          show: true,
+          message: "Message sent successfully! I'll get back to you soon.",
+          type: 'success',
+        });
+        setFormData({
+          firstname: '',
+          lastname: '',
+          email: '',
+          phone: '',
+          topic: '',
+          message: '',
+        });
+        setTouched({});
+        setErrors({});
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to send message');
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
       setToast({
         show: true,
-        message: 'Email service not configured. Please contact the site administrator.',
+        message: 'Failed to send message. Please try again later.',
         type: 'error',
       });
+    } finally {
       setIsSubmitting(false);
-      setTimeout(() => setToast({ ...toast, show: false }), 4000);
-      return;
+      setTimeout(() => setToast((prev) => ({ ...prev, show: false })), 4000);
     }
-
-    emailjs
-      .send(
-        serviceId,
-        templateId,
-        formData,
-        userId
-      )
-      .then(
-        (result) => {
-          console.log('Email sent successfully:', result.text);
-          setToast({
-            show: true,
-            message: 'Message sent successfully! I\'ll get back to you soon.',
-            type: 'success',
-          });
-          setFormData({
-            firstname: '',
-            lastname: '',
-            email: '',
-            phone: '',
-            topic: '',
-            message: '',
-          });
-          setTouched({});
-          setErrors({});
-          setTimeout(() => setToast({ ...toast, show: false }), 4000);
-        },
-        (error) => {
-          console.error('EmailJS error:', error);
-          setToast({
-            show: true,
-            message: 'Failed to send message. Please try again later.',
-            type: 'error',
-          });
-          setTimeout(() => setToast({ ...toast, show: false }), 4000);
-        }
-      )
-      .finally(() => {
-        setIsSubmitting(false);
-      });
   };
 
   return (
@@ -254,7 +238,8 @@ const Contact = () => {
               <span className="text-accent">Together</span>
             </h1>
             <p className="text-white/60 font-body text-lg max-w-2xl">
-              Have a project in mind? Let&apos;s connect and discuss how quality engineering can transform your software delivery.
+              Let’s connect! I’m passionate about test automation and always
+              eager to discuss innovative solutions and new opportunities
             </p>
           </motion.div>
 
@@ -269,7 +254,10 @@ const Contact = () => {
             <div className="space-y-6">
               {/* Name fields */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <InputWrapper error={touched.firstname && errors.firstname} icon={FaUser}>
+                <InputWrapper
+                  error={touched.firstname && errors.firstname}
+                  icon={FaUser}
+                >
                   <Input
                     type="text"
                     name="firstname"
@@ -289,14 +277,21 @@ const Contact = () => {
                     value={formData.lastname}
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    className={touched.lastname && errors.lastname ? 'border-error focus:border-error' : ''}
+                    className={
+                      touched.lastname && errors.lastname
+                        ? 'border-error focus:border-error'
+                        : ''
+                    }
                   />
                 </InputWrapper>
               </div>
 
               {/* Contact fields */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <InputWrapper error={touched.email && errors.email} icon={FaEnvelope}>
+                <InputWrapper
+                  error={touched.email && errors.email}
+                  icon={FaEnvelope}
+                >
                   <Input
                     type="email"
                     name="email"
@@ -308,7 +303,10 @@ const Contact = () => {
                   />
                 </InputWrapper>
 
-                <InputWrapper error={touched.phone && errors.phone} icon={FaPhone}>
+                <InputWrapper
+                  error={touched.phone && errors.phone}
+                  icon={FaPhone}
+                >
                   <Input
                     type="text"
                     name="phone"
@@ -331,7 +329,10 @@ const Contact = () => {
                     className={`w-full ${touched.topic && errors.topic ? 'border-error' : ''}`}
                     onBlur={() => {
                       setTouched({ ...touched, topic: true });
-                      setErrors({ ...errors, topic: validateField('topic', formData.topic) });
+                      setErrors({
+                        ...errors,
+                        topic: validateField('topic', formData.topic),
+                      });
                     }}
                   >
                     <SelectValue placeholder="Select a topic *" />
@@ -340,7 +341,9 @@ const Contact = () => {
                     <SelectGroup>
                       <SelectLabel>Select a topic</SelectLabel>
                       <SelectItem value="qa">Test Automation & QA</SelectItem>
-                      <SelectItem value="consulting">Quality Engineering Consulting</SelectItem>
+                      <SelectItem value="consulting">
+                        Quality Engineering Consulting
+                      </SelectItem>
                       <SelectItem value="cicd">CI/CD Integration</SelectItem>
                       <SelectItem value="other">Other</SelectItem>
                     </SelectGroup>
@@ -360,13 +363,17 @@ const Contact = () => {
                 />
               </InputWrapper>
 
-              <p className="text-white/40 text-xs font-body">* Required fields</p>
+              <p className="text-white/40 text-xs font-body">
+                * Required fields
+              </p>
             </div>
 
             {/* Submit button */}
             <Button
               className={`w-full md:w-auto px-10 py-6 text-lg font-display font-bold bg-gradient-to-r from-accent to-accent/80 hover:from-accent hover:to-amber transition-all duration-500 rounded-full group relative overflow-hidden ${
-                isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-2xl hover:shadow-accent/50 hover:scale-105'
+                isSubmitting
+                  ? 'opacity-50 cursor-not-allowed'
+                  : 'hover:shadow-2xl hover:shadow-accent/50 hover:scale-105'
               }`}
               type="submit"
               disabled={isSubmitting}

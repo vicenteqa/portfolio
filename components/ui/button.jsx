@@ -91,7 +91,9 @@ const Button = React.forwardRef(
         </span>
 
         {/* Content */}
-        <span className="relative z-10">{children}</span>
+        <span className="relative z-10 flex items-center justify-center gap-2">
+          {children}
+        </span>
       </Comp>
     );
   }

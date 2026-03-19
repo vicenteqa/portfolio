@@ -32,6 +32,11 @@ const experience = {
     'I have over 11 years of experience in QA roles, ranging from test definition to test automation implementation. I also have experience leading teams and mentoring junior qa engineers.',
   items: [
     {
+      company: 'SUSE',
+      position: 'Software Engineer - QA',
+      duration: '12/2024 - Now',
+    },
+    {
       company: 'wefox',
       position: 'Engineering Lead',
       duration: '04/2022 - 07/2024',

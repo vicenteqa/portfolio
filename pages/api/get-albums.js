@@ -3,7 +3,18 @@ import axios from 'axios';
 const clientId = process.env.SPOTIFY_CLIENT_ID;
 const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 
+// Simple in-memory cache
+let cachedToken = null;
+let tokenExpiryTime = null;
+let cachedAlbums = null;
+let albumsExpiryTime = null;
+
 async function refreshAccessToken() {
+  // Return cached token if still valid
+  if (cachedToken && tokenExpiryTime && Date.now() < tokenExpiryTime) {
+    return { access_token: cachedToken };
+  }
+
   const authOptions = {
     method: 'post',
     url: 'https://accounts.spotify.com/api/token',
@@ -18,13 +29,17 @@ async function refreshAccessToken() {
 
   try {
     const response = await axios(authOptions);
+    cachedToken = response.data.access_token;
+    // Set expiry 5 minutes before actual expiry to be safe
+    tokenExpiryTime = Date.now() + (response.data.expires_in - 300) * 1000;
+    
     return {
       access_token: response.data.access_token,
       expires_in: response.data.expires_in,
     };
   } catch (error) {
     console.log(
-      'Error refrescando el token de acceso:',
+      'Error refreshing access token:',
       error.response ? error.response.data : error.message
     );
     return null;
@@ -34,7 +49,7 @@ async function refreshAccessToken() {
 async function getFavoriteAlbums() {
   const tokenData = await refreshAccessToken();
   if (!tokenData) {
-    console.log('No se pudo obtener el token de acceso.');
+    console.log('Could not get access token.');
     return;
   }
 
@@ -50,7 +65,7 @@ async function getFavoriteAlbums() {
     return response.data.items;
   } catch (error) {
     console.log(
-      'Error obteniendo los álbumes favoritos:',
+      'Error getting favorite albums:',
       error.response ? error.response.data : error.message
     );
     return null;
@@ -58,15 +73,16 @@ async function getFavoriteAlbums() {
 }
 
 export async function getFavoriteAlbumsSpecificData() {
-  const favoriteAlbums = await getFavoriteAlbums();
-  favoriteAlbums.map((album) => {
-    if (album.album.name.toLowerCase().includes('remaste')) {
-    }
-  });
-  if (favoriteAlbums) {
-    const shuffledAlbums = favoriteAlbums.sort(() => Math.random() - 0.5);
+  // Check if we have fresh cached albums (cache for 1 hour)
+  if (cachedAlbums && albumsExpiryTime && Date.now() < albumsExpiryTime) {
+    // Return a shuffled slice of cached data to maintain the "discovery" feel
+    return [...cachedAlbums].sort(() => Math.random() - 0.5).slice(0, 35);
+  }
 
-    const albums = shuffledAlbums.slice(0, 35).map((album) => {
+  const favoriteAlbums = await getFavoriteAlbums();
+  
+  if (favoriteAlbums) {
+    const albums = favoriteAlbums.map((album) => {
       const cleanName = album.album.name.replace(/\s?\(.*?\)$/g, '').trim();
 
       return {
@@ -78,14 +94,22 @@ export async function getFavoriteAlbumsSpecificData() {
       };
     });
 
-    return albums;
+    // Cache the processed albums for 1 hour
+    cachedAlbums = albums;
+    albumsExpiryTime = Date.now() + 60 * 60 * 1000;
+
+    // Return shuffled slice
+    return [...albums].sort(() => Math.random() - 0.5).slice(0, 35);
   }
+  return null;
 }
 
 export default async function handler(req, res) {
   try {
     const albums = await getFavoriteAlbumsSpecificData();
     if (albums) {
+      // Set browser cache for 1 hour, but allow revalidation
+      res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=59');
       res.status(200).json(albums);
     } else {
       res.status(500).json({ error: 'Failed to load albums' });

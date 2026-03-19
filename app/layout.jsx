@@ -1,4 +1,4 @@
-import { Fira_Code, Syne, DM_Sans } from 'next/font/google';
+import { Fira_Code } from 'next/font/google';
 import './globals.css';
 
 //Components
@@ -12,18 +12,6 @@ const firaCode = Fira_Code({
   variable: '--font-firaCode',
 });
 
-const syne = Syne({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-syne',
-});
-
-const dmSans = DM_Sans({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-dmSans',
-});
-
 export const metadata = {
   title: 'Vicente Ruiz - Portfolio',
 };
@@ -31,7 +19,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${firaCode.variable} ${syne.variable} ${dmSans.variable}`}>
+      <body className={firaCode.variable}>
         <Header />
         <StairTransition></StairTransition>
         <PageTransition>{children}</PageTransition>
