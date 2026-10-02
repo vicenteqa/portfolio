@@ -1,17 +1,17 @@
 'use client';
 
-import { FaJs, FaNodeJs } from 'react-icons/fa';
+import { FaJs, FaNodeJs, FaTheaterMasks } from 'react-icons/fa';
+// react-icons 5.7 dropped the Simple Icons entries for Playwright and Azure
+import { VscAzure } from 'react-icons/vsc';
 
 import {
   SiCypress,
-  SiPlaywright,
   SiTypescript,
   SiPostman,
   SiGithubactions,
   SiTerraform,
   SiAnsible,
   SiHelm,
-  SiMicrosoftazure,
 } from 'react-icons/si';
 
 import { yearsInQA } from '@/lib/career';
@@ -117,7 +117,7 @@ const skills = {
     'I specialize in Playwright and Cypress for testing, and in the workflows that validate package releases: Terraform, Ansible and GitHub Actions deploy Azure VMs, install the stack and run the tests.',
   skillsList: [
     { icon: <SiCypress />, name: 'Cypress' },
-    { icon: <SiPlaywright />, name: 'Playwright' },
+    { icon: <FaTheaterMasks />, name: 'Playwright' },
     { icon: <FaJs />, name: 'javascript' },
     { icon: <SiTypescript />, name: 'Typescript' },
     { icon: <FaNodeJs />, name: 'node.js' },
@@ -126,7 +126,7 @@ const skills = {
     { icon: <SiTerraform />, name: 'Terraform' },
     { icon: <SiAnsible />, name: 'Ansible' },
     { icon: <SiHelm />, name: 'Helm' },
-    { icon: <SiMicrosoftazure />, name: 'Azure' },
+    { icon: <VscAzure />, name: 'Azure' },
   ],
 };
 
