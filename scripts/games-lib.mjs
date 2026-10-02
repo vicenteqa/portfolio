@@ -73,7 +73,9 @@ export function similarity(a, b) {
 export function pickBest(candidates, title) {
   let best = null;
   for (const c of candidates) {
-    const score = norm(c.name) === norm(title) ? 1 : similarity(c.name, title);
+    // IGDB often lists the title you know as an alternative name of the entry
+    const names = [c.name, ...(c.alternative_names || []).map((a) => a.name)];
+    const score = Math.max(...names.map((n) => (norm(n) === norm(title) ? 1 : similarity(n, title))));
     // prefer entries that have a cover when scores tie
     const rank = score + (c.cover?.image_id ? 0.001 : 0);
     if (!best || rank > best.rank) best = { candidate: c, score, rank };

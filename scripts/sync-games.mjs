@@ -80,7 +80,7 @@ if (haveCreds) {
 }
 
 async function lookup(row) {
-  const fields = 'fields name,first_release_date,cover.image_id,url;';
+  const fields = 'fields name,alternative_names.name,first_release_date,cover.image_id,url;';
   let candidates;
   if (row.igdb_id) {
     candidates = await igdb('games', `${fields} where id = ${Number(row.igdb_id)};`);
