@@ -28,6 +28,7 @@ const about = {
     { fieldName: 'Phone', fieldValue: '(+34) 636 447 XXX' },
     { fieldName: 'Experience', fieldValue: `${YEARS}+ Years` },
     { fieldName: 'Nationality', fieldValue: 'Spanish' },
+    { fieldName: 'Location', fieldValue: 'Barcelona' },
     { fieldName: 'Languages', fieldValue: 'English, Spanish, Catalan' },
   ],
 };
