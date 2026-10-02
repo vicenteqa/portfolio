@@ -6,6 +6,7 @@
 //
 // .env needs IGDB_CLIENT_ID and IGDB_CLIENT_SECRET (a free Twitch developer app).
 // Without them it still writes games.json (no covers), so the page keeps working.
+// Cover priority: data/covers/<id>.* (your photo)  >  cover_url column in the CSV  >  IGDB.
 // Run it by hand when the collection changes; visitors never touch IGDB.
 import { mkdir, readFile, readdir, unlink, writeFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -31,6 +32,7 @@ try {
   previous = JSON.parse(await readFile(OUT, 'utf8')).games;
 } catch {}
 const known = new Map(previous.map((g) => [g.id, g]));
+const rowKey = (r) => slugify(`${r.title} ${r.platform}`);
 
 const base = (row) => ({
   id: slugify(`${row.title} ${row.platform}`),
@@ -95,6 +97,20 @@ async function lookup(row) {
   return pickBest(candidates, row.title);
 }
 
+// Download an image the user pointed at (cover_url in the CSV). Guard rails:
+// http(s) only, must answer with an image, at most 10 MB, 20 s.
+async function saveFromUrl(url, id) {
+  const u = new URL(url);
+  if (!['http:', 'https:'].includes(u.protocol)) throw new Error('only http(s) URLs');
+  const res = await fetch(u, { signal: AbortSignal.timeout(20_000), redirect: 'follow' });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const type = res.headers.get('content-type') || '';
+  if (!type.startsWith('image/')) throw new Error(`not an image (${type || 'no content-type'})`);
+  const buf = Buffer.from(await res.arrayBuffer());
+  if (buf.length > 10 * 1024 * 1024) throw new Error('image larger than 10 MB');
+  await sharp(buf).rotate().resize({ width: 264 }).webp({ quality: 82 }).toFile(path.join(COVERS, `${id}.webp`));
+}
+
 async function saveCover(imageId, id) {
   const res = await fetch(coverUrl(imageId, IMAGES));
   if (!res.ok) throw new Error(`cover ${res.status}`);
@@ -123,10 +139,11 @@ for (const row of rows) {
   // skip what is already resolved, unless asked to refresh or the CSV now points at another IGDB id
   const done =
     old && old.cover && !refresh && (!row.igdb_id || String(old.igdbId) === row.igdb_id) &&
-    !(old.ownCover && !own.has(entry.id)); // own photo was removed: go back to IGDB's cover
+    !(old.ownCover && !own.has(entry.id)) && // own photo was removed: go back to IGDB's cover
+    !(old.coverSource && !row.cover_url); // cover_url was removed: same
 
   if (done || !haveCreds) {
-    games.push({ ...entry, ...(old ? { year: old.year, cover: old.cover, igdbId: old.igdbId ?? null, igdbUrl: old.igdbUrl } : { year: null, cover: null, igdbId: null, igdbUrl: null }) });
+    games.push({ ...entry, ...(old ? { year: old.year, cover: old.cover, igdbId: old.igdbId ?? null, igdbUrl: old.igdbUrl, ...(old.coverSource ? { coverSource: old.coverSource } : {}) } : { year: null, cover: null, igdbId: null, igdbUrl: null }) });
     continue;
   }
 
@@ -138,7 +155,7 @@ for (const row of rows) {
       continue;
     }
     let cover = null;
-    if (hit.cover?.image_id) {
+    if (hit.cover?.image_id && !row.cover_url) {
       await saveCover(hit.cover.image_id, entry.id);
       cover = `/games/${entry.id}.webp`;
     }
@@ -151,6 +168,24 @@ for (const row of rows) {
     console.error(`FAIL  ${row.title}: ${e.message}`);
     failed.push(row);
     games.push({ ...entry, year: null, cover: null, igdbId: null, igdbUrl: null });
+  }
+}
+
+// cover_url: a picture somewhere on the web that the user picked
+const failedUrls = [];
+const rowsById = new Map(rows.map((r) => [rowKey(r), r]));
+for (const g of games) {
+  const url = rowsById.get(g.id)?.cover_url;
+  if (!url) continue;
+  const fileExists = await readFile(path.join(COVERS, `${g.id}.webp`)).then(() => true, () => false);
+  if (g.coverSource === url && fileExists && !refresh) continue;
+  try {
+    await saveFromUrl(url, g.id);
+    g.cover = `/games/${g.id}.webp`;
+    g.coverSource = url;
+    console.log(`url   ${g.platform.padEnd(10)} ${g.title}  <-  ${url}`);
+  } catch (e) {
+    failedUrls.push({ g, url, why: e.message });
   }
 }
 
@@ -178,6 +213,10 @@ await writeFile(OUT, JSON.stringify({ games }, null, 2) + '\n');
 
 const withCover = games.filter((g) => g.cover).length;
 console.log(`\n${games.length} games written to app/collection/games.json (${withCover} with cover).`);
+if (failedUrls.length) {
+  console.log('\ncover_url failed (the IGDB cover is kept):');
+  for (const f of failedUrls) console.log(`  "${f.g.title}" (${f.g.platform}): ${f.why} - ${f.url}`);
+}
 if (unknownOwn.length) console.log(`\nIgnored files in data/covers (no game with that id): ${unknownOwn.join(', ')}`);
 if (review.length) {
   console.log('\nCheck these matches (low confidence). Put the right IGDB id in data/games.csv:');
