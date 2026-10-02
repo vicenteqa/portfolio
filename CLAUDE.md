@@ -51,7 +51,7 @@ The Playwright config (playwright.config.ts) automatically starts the dev server
 ### Framework & Routing
 - **Next.js 15** with App Router architecture
 - Pages are located in `app/` directory using the file-based routing convention
-- Routes: `/` (home), `/resume`, `/contact`, `/music` (`/funStuff` exists but is hidden from the nav until its content is updated; nav list lives in `lib/routes.js`)
+- Routes: `/` (home), `/resume`, `/contact`, `/collection` (vinyl + games; `/music` redirects here) (`/funStuff` exists but is hidden from the nav until its content is updated; nav list lives in `lib/routes.js`)
 
 ### Component Structure
 - **UI Components**: Located in `components/ui/` - built with Radix UI primitives and styled with Tailwind
@@ -77,6 +77,10 @@ The Playwright config (playwright.config.ts) automatically starts the dev server
   - Fetches all of the user's saved albums (pages of 50, following `next`)
   - Shuffles and returns them all; serves `app/music/music.json` if Spotify fails
   - Cleans album names by removing parenthetical text (remaster info, etc.)
+
+### Games shelf (`/collection`, "games" tab)
+- Physical games live in `data/games.csv` (title, platform, note, optional igdb_id). `npm run sync:games` builds `app/collection/games.json` and, with `IGDB_CLIENT_ID`/`IGDB_CLIENT_SECRET` in `.env`, downloads year + cover art from IGDB into `public/games/*.webp` (resized to 264px). It only fetches what is missing; `--refresh` redoes everything; low-confidence matches and misses are listed at the end: fix them by putting the right IGDB id in the CSV. Visitors never hit IGDB.
+- UI: `components/GameShelf.jsx` (a shelf per platform; cases without a cover render as tinted title cards). `/music` redirects to `/collection` (next.config.mjs).
 
 ### Music Section
 - Displays albums from Spotify API via `/api/get-albums` endpoint

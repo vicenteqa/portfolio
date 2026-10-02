@@ -3,18 +3,24 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import CrateDigger from '@/components/CrateDigger';
+import GameShelf from '@/components/GameShelf';
 import PageHeader from '@/components/PageHeader';
 import { FaMusic, FaCompactDisc } from 'react-icons/fa';
 
 const Header = () => (
   <PageHeader
-    label="music"
-    className="!mb-2"
-    intro="Explore my personal vinyl collection! Few things reveal more about someone than the music they listen to. Reload to discover even more!"
+    label="collection"
+    className="!mb-6"
+    intro="The records I listen to and the games I own. Few things say more about someone than that."
   >
-    Vinyl <span className="text-accent">collection</span>
+    My <span className="text-accent">collection</span>
   </PageHeader>
 );
+
+const TABS = [
+  { id: 'vinyl', label: 'vinyl' },
+  { id: 'games', label: 'games' },
+];
 
 const Notice = ({ icon: Icon, title, children, action }) => (
   <div className="flex flex-col items-center justify-center py-16">
@@ -33,6 +39,17 @@ const MusicPage = () => {
   const [albums, setAlbums] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [tab, setTab] = useState('vinyl');
+
+  // #games opens the games tab directly
+  useEffect(() => {
+    if (window.location.hash === '#games') setTab('games');
+  }, []);
+
+  const pick = (id) => {
+    setTab(id);
+    window.history.replaceState(null, '', id === 'vinyl' ? '/collection' : `/collection#${id}`);
+  };
 
   useEffect(() => {
     const fetchAlbums = async () => {
@@ -63,6 +80,44 @@ const MusicPage = () => {
   return (
     <section className="container mx-auto pb-12">
       <Header />
+
+      <div role="tablist" aria-label="Collection" className="mb-8 flex border-b border-white/10 font-mono text-sm">
+        {TABS.map((t) => (
+          <button
+            key={t.id}
+            id={`tab-${t.id}`}
+            type="button"
+            role="tab"
+            aria-selected={tab === t.id}
+            aria-controls={`panel-${t.id}`}
+            onClick={() => pick(t.id)}
+            onKeyDown={(e) => {
+              if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+                const next = tab === 'vinyl' ? 'games' : 'vinyl';
+                pick(next);
+                document.getElementById(`tab-${next}`)?.focus();
+              }
+            }}
+            tabIndex={tab === t.id ? 0 : -1}
+            className={`-mb-px border-b-2 px-5 py-2.5 transition-colors ${
+              tab === t.id
+                ? 'border-accent bg-accent/10 text-accent'
+                : 'border-transparent text-white/50 hover:text-white'
+            }`}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      {tab === 'games' && (
+        <div role="tabpanel" id="panel-games" aria-labelledby="tab-games">
+          <GameShelf />
+        </div>
+      )}
+
+      {tab === 'vinyl' && (
+        <div role="tabpanel" id="panel-vinyl" aria-labelledby="tab-vinyl">
 
       {loading && (
         <div className="flex flex-col items-center py-16" aria-busy="true">
@@ -110,6 +165,8 @@ const MusicPage = () => {
         >
           <CrateDigger albums={albums} />
         </motion.div>
+      )}
+        </div>
       )}
     </section>
   );

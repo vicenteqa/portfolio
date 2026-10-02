@@ -1,5 +1,5 @@
 import axios from 'axios';
-import fallbackAlbums from '../../app/music/music.json';
+import fallbackAlbums from '../../app/collection/music.json';
 import { createAlbumsService } from '@/lib/albums';
 
 const service = createAlbumsService({ http: axios });

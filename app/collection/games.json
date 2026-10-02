@@ -1,0 +1,604 @@
+{
+  "games": [
+    {
+      "id": "sonic-the-hedgehog-mega-drive",
+      "title": "Sonic the Hedgehog",
+      "platform": "Mega Drive",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "the-lion-king-mega-drive",
+      "title": "The Lion King",
+      "platform": "Mega Drive",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "sonic-and-knuckles-mega-drive",
+      "title": "Sonic & Knuckles",
+      "platform": "Mega Drive",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "international-superstar-soccer-deluxe-mega-drive",
+      "title": "International Superstar Soccer Deluxe",
+      "platform": "Mega Drive",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "the-jungle-book-mega-drive",
+      "title": "The Jungle Book",
+      "platform": "Mega Drive",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "quackshot-starring-donald-duck-mega-drive",
+      "title": "QuackShot Starring Donald Duck",
+      "platform": "Mega Drive",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "castle-of-illusion-starring-mickey-mouse-mega-drive",
+      "title": "Castle of Illusion Starring Mickey Mouse",
+      "platform": "Mega Drive",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "jurassic-park-mega-drive",
+      "title": "Jurassic Park",
+      "platform": "Mega Drive",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "asterix-and-the-great-rescue-mega-drive",
+      "title": "Asterix and the Great Rescue",
+      "platform": "Mega Drive",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "fifa-soccer-97-mega-drive",
+      "title": "FIFA Soccer 97",
+      "platform": "Mega Drive",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "wimbledon-championship-tennis-mega-drive",
+      "title": "Wimbledon Championship Tennis",
+      "platform": "Mega Drive",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "mega-games-1-mega-drive",
+      "title": "Mega Games 1",
+      "platform": "Mega Drive",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "dragon-ball-z-buyuu-retsuden-mega-drive",
+      "title": "Dragon Ball Z: Buyuu Retsuden",
+      "platform": "Mega Drive",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "mighty-morphin-power-rangers-the-movie-mega-drive",
+      "title": "Mighty Morphin Power Rangers: The Movie",
+      "platform": "Mega Drive",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "street-racer-mega-drive",
+      "title": "Street Racer",
+      "platform": "Mega Drive",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "sonic-the-hedgehog-2-mega-drive",
+      "title": "Sonic the Hedgehog 2",
+      "platform": "Mega Drive",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "dynamite-headdy-mega-drive",
+      "title": "Dynamite Headdy",
+      "platform": "Mega Drive",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "toy-story-mega-drive",
+      "title": "Toy Story",
+      "platform": "Mega Drive",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "assassin-s-creed-valhalla-ps4",
+      "title": "Assassin's Creed Valhalla",
+      "platform": "PS4",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "ghost-of-tsushima-ps4",
+      "title": "Ghost of Tsushima",
+      "platform": "PS4",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "grand-theft-auto-the-trilogy-the-definitive-edition-ps4",
+      "title": "Grand Theft Auto: The Trilogy - The Definitive Edition",
+      "platform": "PS4",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "the-last-of-us-part-ii-ps4",
+      "title": "The Last of Us Part II",
+      "platform": "PS4",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "shadow-of-the-colossus-ps4",
+      "title": "Shadow of the Colossus",
+      "platform": "PS4",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "uncharted-4-a-thief-s-end-ps4",
+      "title": "Uncharted 4: A Thief's End",
+      "platform": "PS4",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "the-last-guardian-ps4",
+      "title": "The Last Guardian",
+      "platform": "PS4",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "detroit-become-human-ps4",
+      "title": "Detroit: Become Human",
+      "platform": "PS4",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "assassin-s-creed-origins-ps4",
+      "title": "Assassin's Creed Origins",
+      "platform": "PS4",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "assassin-s-creed-odyssey-ps4",
+      "title": "Assassin's Creed Odyssey",
+      "platform": "PS4",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "rise-of-the-tomb-raider-ps4",
+      "title": "Rise of the Tomb Raider",
+      "platform": "PS4",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "god-of-war-ps4",
+      "title": "God of War",
+      "platform": "PS4",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "red-dead-redemption-2-ps4",
+      "title": "Red Dead Redemption 2",
+      "platform": "PS4",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "marvel-s-spider-man-ps4",
+      "title": "Marvel's Spider-Man",
+      "platform": "PS4",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "bioshock-the-collection-ps4",
+      "title": "BioShock: The Collection",
+      "platform": "PS4",
+      "note": "The three BioShock games",
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "ghost-of-yotei-ps5",
+      "title": "Ghost of Yōtei",
+      "platform": "PS5",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "clair-obscur-expedition-33-ps5",
+      "title": "Clair Obscur: Expedition 33",
+      "platform": "PS5",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "god-of-war-ragnarok-ps5",
+      "title": "God of War Ragnarök",
+      "platform": "PS5",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "control-ps5",
+      "title": "Control",
+      "platform": "PS5",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "the-last-of-us-part-i-ps5",
+      "title": "The Last of Us Part I",
+      "platform": "PS5",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "assassin-s-creed-mirage-ps5",
+      "title": "Assassin's Creed Mirage",
+      "platform": "PS5",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "a-plague-tale-requiem-ps5",
+      "title": "A Plague Tale: Requiem",
+      "platform": "PS5",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "astro-bot-ps5",
+      "title": "Astro Bot",
+      "platform": "PS5",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "assassin-s-creed-xbox-360",
+      "title": "Assassin's Creed",
+      "platform": "Xbox 360",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "assassin-s-creed-ii-xbox-360",
+      "title": "Assassin's Creed II",
+      "platform": "Xbox 360",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "assassin-s-creed-brotherhood-xbox-360",
+      "title": "Assassin's Creed: Brotherhood",
+      "platform": "Xbox 360",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "assassin-s-creed-revelations-xbox-360",
+      "title": "Assassin's Creed: Revelations",
+      "platform": "Xbox 360",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "assassin-s-creed-iii-xbox-360",
+      "title": "Assassin's Creed III",
+      "platform": "Xbox 360",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "assassin-s-creed-iv-black-flag-xbox-360",
+      "title": "Assassin's Creed IV: Black Flag",
+      "platform": "Xbox 360",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "gears-of-war-xbox-360",
+      "title": "Gears of War",
+      "platform": "Xbox 360",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "gears-of-war-2-xbox-360",
+      "title": "Gears of War 2",
+      "platform": "Xbox 360",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "virtua-tennis-3-xbox-360",
+      "title": "Virtua Tennis 3",
+      "platform": "Xbox 360",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "top-spin-3-xbox-360",
+      "title": "Top Spin 3",
+      "platform": "Xbox 360",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "project-gotham-racing-4-xbox-360",
+      "title": "Project Gotham Racing 4",
+      "platform": "Xbox 360",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "grand-theft-auto-iv-xbox-360",
+      "title": "Grand Theft Auto IV",
+      "platform": "Xbox 360",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "grand-theft-auto-v-xbox-360",
+      "title": "Grand Theft Auto V",
+      "platform": "Xbox 360",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "sonic-origins-switch",
+      "title": "Sonic Origins",
+      "platform": "Switch",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "super-mario-odyssey-switch",
+      "title": "Super Mario Odyssey",
+      "platform": "Switch",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "ori-the-collection-switch",
+      "title": "Ori: The Collection",
+      "platform": "Switch",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "super-mario-3d-all-stars-switch",
+      "title": "Super Mario 3D All-Stars",
+      "platform": "Switch",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "gris-switch",
+      "title": "GRIS",
+      "platform": "Switch",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    },
+    {
+      "id": "donkey-kong-bananza-switch-2",
+      "title": "Donkey Kong Bananza",
+      "platform": "Switch 2",
+      "note": null,
+      "year": null,
+      "cover": null,
+      "igdbId": null,
+      "igdbUrl": null
+    }
+  ]
+}
