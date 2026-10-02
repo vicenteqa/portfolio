@@ -1,0 +1,18 @@
+# Lives on the VPS at /home/ubuntu/portfolio/docker-compose.yaml
+# (copy of deploy/docker-compose.yaml in the repo).
+services:
+  portfolio:
+    image: ghcr.io/vicenteqa/portfolio:${PORTFOLIO_TAG:-latest}
+    container_name: portfolio
+    restart: unless-stopped
+    env_file: .env # SPOTIFY_*, SMTP_*, CONTACT_EMAIL (never committed)
+    # loopback only: nginx is the single public entry point
+    ports:
+      - '127.0.0.1:3001:3000'
+    mem_limit: 384m
+    healthcheck:
+      test: ['CMD-SHELL', 'wget -qO- http://127.0.0.1:3000/ >/dev/null || exit 1']
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
