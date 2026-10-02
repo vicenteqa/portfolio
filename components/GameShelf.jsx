@@ -1,8 +1,9 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import data from '@/app/collection/games.json';
 
 // shelf order: roughly by generation
@@ -73,6 +74,119 @@ const Case = ({ game, selected, onSelect, index, reduce }) => {
         <span className="pointer-events-none absolute inset-0 rounded-[3px] bg-gradient-to-br from-white/15 via-transparent to-black/20" />
       </motion.button>
     </div>
+  );
+};
+
+// One shelf = one platform = one horizontally scrolling row of cases.
+const ShelfRow = ({ shelf, selected, onSelect, startIndex, reduce }) => {
+  const scroller = useRef(null);
+  const drag = useRef(null);
+  const [edges, setEdges] = useState({ left: false, right: false });
+
+  const measure = useCallback(() => {
+    const el = scroller.current;
+    if (!el) return;
+    setEdges({
+      left: el.scrollLeft > 4,
+      right: el.scrollLeft + el.clientWidth < el.scrollWidth - 4,
+    });
+  }, []);
+
+  useEffect(() => {
+    measure();
+    const el = scroller.current;
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [measure, shelf.games.length]);
+
+  const scrollBy = (dir) => {
+    const el = scroller.current;
+    el.scrollBy({ left: dir * el.clientWidth * 0.8, behavior: reduce ? 'auto' : 'smooth' });
+  };
+
+  // mouse drag-to-scroll (touch already scrolls natively)
+  const onPointerDown = (e) => {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    drag.current = { x: e.clientX, left: scroller.current.scrollLeft, moved: false };
+  };
+  const onPointerMove = (e) => {
+    const d = drag.current;
+    if (!d) return;
+    const dx = e.clientX - d.x;
+    if (Math.abs(dx) > 5) d.moved = true;
+    if (d.moved) scroller.current.scrollLeft = d.left - dx;
+  };
+  const endDrag = () => {
+    // keep "moved" until the click that follows the drag has been swallowed
+    setTimeout(() => (drag.current = null), 0);
+  };
+
+  return (
+    <section aria-label={`${shelf.platform} shelf`}>
+      <div className="mb-2 flex items-center justify-between">
+        <h2 className="inline-block rounded-sm border border-amber/40 bg-amber/10 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.2em] text-amber">
+          {shelf.platform} · {shelf.games.length}
+        </h2>
+        <div className="flex gap-1.5">
+          {[
+            { dir: -1, label: 'Scroll left', Icon: FaChevronLeft, on: edges.left },
+            { dir: 1, label: 'Scroll right', Icon: FaChevronRight, on: edges.right },
+          ].map(({ dir, label, Icon, on }) => (
+            <button
+              key={dir}
+              type="button"
+              onClick={() => scrollBy(dir)}
+              disabled={!on}
+              aria-label={`${label}, ${shelf.platform}`}
+              className="flex h-7 w-7 items-center justify-center rounded border border-white/15 text-xs text-white/70 transition-colors hover:border-accent hover:text-accent disabled:pointer-events-none disabled:opacity-25"
+            >
+              <Icon />
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="relative rounded-md border border-black/60 shadow-[inset_0_6px_14px_rgba(0,0,0,0.55)] overflow-hidden" style={{ backgroundColor: '#24160d' }}>
+        <div
+          ref={scroller}
+          onScroll={measure}
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={endDrag}
+          onPointerLeave={endDrag}
+          onClickCapture={(e) => {
+            if (drag.current?.moved) {
+              e.stopPropagation();
+              e.preventDefault();
+            }
+          }}
+          className="overflow-x-auto overscroll-x-contain snap-x snap-proximity scroll-px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden cursor-grab active:cursor-grabbing"
+        >
+          <div
+            className="flex w-max min-w-full gap-x-3 px-4"
+            style={{
+              backgroundImage: `${wood}, repeating-linear-gradient(90deg, rgba(255,210,160,.035) 0 2px, transparent 2px 11px)`,
+            }}
+          >
+            {shelf.games.map((g, i) => (
+              <div key={g.id} className="snap-start shrink-0">
+                <Case
+                  game={g}
+                  index={startIndex + i}
+                  reduce={reduce}
+                  selected={selected?.id === g.id}
+                  onSelect={onSelect}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* fades tell you there is more to the left / right */}
+        <div className={`pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-[#24160d] to-transparent transition-opacity ${edges.left ? 'opacity-100' : 'opacity-0'}`} />
+        <div className={`pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-[#24160d] to-transparent transition-opacity ${edges.right ? 'opacity-100' : 'opacity-0'}`} />
+      </div>
+    </section>
   );
 };
 
@@ -162,35 +276,22 @@ const GameShelf = () => {
         )}
       </div>
 
-      {/* shelves */}
-      <div className="space-y-8">
-        {visible.map((shelf) => (
-          <section key={shelf.platform} aria-label={`${shelf.platform} shelf`}>
-            <h2 className="mb-2 inline-block rounded-sm border border-amber/40 bg-amber/10 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.2em] text-amber">
-              {shelf.platform} · {shelf.games.length}
-            </h2>
-            <div
-              className="rounded-md border border-black/60 px-4 shadow-[inset_0_6px_14px_rgba(0,0,0,0.55)]"
-              style={{
-                backgroundColor: '#24160d',
-                backgroundImage: `${wood}, repeating-linear-gradient(90deg, rgba(255,210,160,.035) 0 2px, transparent 2px 11px)`,
-              }}
-            >
-              <div className="flex flex-wrap content-start gap-x-3">
-                {shelf.games.map((g) => (
-                  <Case
-                    key={g.id}
-                    game={g}
-                    index={n++}
-                    reduce={reduce}
-                    selected={selected?.id === g.id}
-                    onSelect={setSelected}
-                  />
-                ))}
-              </div>
-            </div>
-          </section>
-        ))}
+      {/* shelves: one row per platform */}
+      <div className="space-y-7">
+        {visible.map((shelf) => {
+          const startIndex = n;
+          n += shelf.games.length;
+          return (
+            <ShelfRow
+              key={shelf.platform}
+              shelf={shelf}
+              startIndex={startIndex}
+              reduce={reduce}
+              selected={selected}
+              onSelect={setSelected}
+            />
+          );
+        })}
       </div>
 
       {anyCover && (
