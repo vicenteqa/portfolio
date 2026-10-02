@@ -47,7 +47,7 @@ const experience = {
         'Automate infrastructure provisioning and validation end to end: Terraform, Ansible and GitHub Actions pipelines that stand up Azure environments and verify release candidates across every supported SLES for SAP version.',
         'Own release engineering and CI across the product stack: OBS package sync, Helm chart releases, new OS target enablement and dependency vulnerability remediation.',
         'Turned test reliability from ad-hoc firefighting into an owned system: automated flaky detection across backend, frontend and E2E, with a dashboard, failure evidence and alerting.',
-        'Set testing standards for the team: Page Object architecture across the E2E suite, an ADR on E2E best practices, and 60% faster execution through parallelization.',
+        'Set testing standards for the team: Page Object architecture across the E2E suite and 60% faster execution through parallelization.',
         'Work AI-first, using coding agents for scaffolding, root-cause analysis, large-scale refactors and automating repetitive day-to-day tasks.',
       ],
     },
