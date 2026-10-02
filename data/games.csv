@@ -6,7 +6,7 @@
 #  - your own cover: put an image in data/covers/<id>.jpg|png|webp (the id is the game's "id" in
 #    app/collection/games.json, e.g. the-lion-king-mega-drive). It wins over IGDB's cover.
 title,platform,note,igdb_id,cover_url
-Sonic the Hedgehog,Mega Drive,,,
+Sonic the Hedgehog,Mega Drive,,,https://morguefile.wiki/wiki/images/a/a4/Sonic_1_Mega_Drive_cover_art_EU.jpg
 The Lion King,Mega Drive,,,
 Sonic & Knuckles,Mega Drive,,,
 International Superstar Soccer Deluxe,Mega Drive,,,
