@@ -19,7 +19,8 @@
       "year": 1994,
       "cover": "/games/the-lion-king-mega-drive.webp",
       "igdbId": 3166,
-      "igdbUrl": "https://www.igdb.com/games/the-lion-king"
+      "igdbUrl": "https://www.igdb.com/games/the-lion-king",
+      "coverSource": "https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Lion%20King%2C%20The%20(Europe).png"
     },
     {
       "id": "sonic-and-knuckles-mega-drive",
@@ -29,7 +30,8 @@
       "year": 1994,
       "cover": "/games/sonic-and-knuckles-mega-drive.webp",
       "igdbId": 9475,
-      "igdbUrl": "https://www.igdb.com/games/sonic-and-knuckles"
+      "igdbUrl": "https://www.igdb.com/games/sonic-and-knuckles",
+      "coverSource": "https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Sonic%20_%20Knuckles%20(Europe).png"
     },
     {
       "id": "international-superstar-soccer-deluxe-mega-drive",
@@ -39,7 +41,8 @@
       "year": 1995,
       "cover": "/games/international-superstar-soccer-deluxe-mega-drive.webp",
       "igdbId": 9862,
-      "igdbUrl": "https://www.igdb.com/games/international-superstar-soccer-deluxe"
+      "igdbUrl": "https://www.igdb.com/games/international-superstar-soccer-deluxe",
+      "coverSource": "https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/International%20Superstar%20Soccer%20Deluxe%20(Europe).png"
     },
     {
       "id": "the-jungle-book-mega-drive",
@@ -49,7 +52,8 @@
       "year": 1994,
       "cover": "/games/the-jungle-book-mega-drive.webp",
       "igdbId": 6480,
-      "igdbUrl": "https://www.igdb.com/games/disneys-the-jungle-book--3"
+      "igdbUrl": "https://www.igdb.com/games/disneys-the-jungle-book--3",
+      "coverSource": "https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Jungle%20Book%2C%20The%20(Europe).png"
     },
     {
       "id": "quackshot-starring-donald-duck-mega-drive",
@@ -59,7 +63,8 @@
       "year": 1991,
       "cover": "/games/quackshot-starring-donald-duck-mega-drive.webp",
       "igdbId": 8446,
-      "igdbUrl": "https://www.igdb.com/games/quackshot-starring-donald-duck"
+      "igdbUrl": "https://www.igdb.com/games/quackshot-starring-donald-duck",
+      "coverSource": "https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/QuackShot%20Starring%20Donald%20Duck%20(World).png"
     },
     {
       "id": "castle-of-illusion-starring-mickey-mouse-mega-drive",
@@ -69,7 +74,8 @@
       "year": 1990,
       "cover": "/games/castle-of-illusion-starring-mickey-mouse-mega-drive.webp",
       "igdbId": 8122,
-      "igdbUrl": "https://www.igdb.com/games/castle-of-illusion-starring-mickey-mouse"
+      "igdbUrl": "https://www.igdb.com/games/castle-of-illusion-starring-mickey-mouse",
+      "coverSource": "https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Castle%20of%20Illusion%20Starring%20Mickey%20Mouse%20(USA%2C%20Europe).png"
     },
     {
       "id": "jurassic-park-mega-drive",
@@ -79,7 +85,8 @@
       "year": 1993,
       "cover": "/games/jurassic-park-mega-drive.webp",
       "igdbId": 4519,
-      "igdbUrl": "https://www.igdb.com/games/jurassic-park"
+      "igdbUrl": "https://www.igdb.com/games/jurassic-park",
+      "coverSource": "https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Jurassic%20Park%20(Europe).png"
     },
     {
       "id": "asterix-and-the-great-rescue-mega-drive",
@@ -89,7 +96,8 @@
       "year": 1993,
       "cover": "/games/asterix-and-the-great-rescue-mega-drive.webp",
       "igdbId": 8501,
-      "igdbUrl": "https://www.igdb.com/games/asterix-and-the-great-rescue"
+      "igdbUrl": "https://www.igdb.com/games/asterix-and-the-great-rescue",
+      "coverSource": "https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Asterix%20and%20the%20Great%20Rescue%20(Europe)%20(En%2CFr%2CDe%2CEs%2CIt).png"
     },
     {
       "id": "fifa-soccer-97-mega-drive",
@@ -99,7 +107,8 @@
       "year": 1996,
       "cover": "/games/fifa-soccer-97-mega-drive.webp",
       "igdbId": 240217,
-      "igdbUrl": "https://www.igdb.com/games/fifa-soccer-97"
+      "igdbUrl": "https://www.igdb.com/games/fifa-soccer-97",
+      "coverSource": "https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/FIFA%20Soccer%2097%20(USA%2C%20Europe)%20(En%2CFr%2CDe%2CEs%2CIt%2CSv).png"
     },
     {
       "id": "wimbledon-championship-tennis-mega-drive",
@@ -109,7 +118,8 @@
       "year": 1993,
       "cover": "/games/wimbledon-championship-tennis-mega-drive.webp",
       "igdbId": 47053,
-      "igdbUrl": "https://www.igdb.com/games/wimbledon-championship-tennis"
+      "igdbUrl": "https://www.igdb.com/games/wimbledon-championship-tennis",
+      "coverSource": "https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Wimbledon%20Championship%20Tennis%20(Europe).png"
     },
     {
       "id": "mega-games-1-mega-drive",
@@ -119,7 +129,8 @@
       "year": 1992,
       "cover": "/games/mega-games-1-mega-drive.webp",
       "igdbId": 10193,
-      "igdbUrl": "https://www.igdb.com/games/triple-score-3-games-in-1"
+      "igdbUrl": "https://www.igdb.com/games/triple-score-3-games-in-1",
+      "coverSource": "https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Mega%20Games%20I%20(Europe).png"
     },
     {
       "id": "dragon-ball-z-buyuu-retsuden-mega-drive",
@@ -129,7 +140,8 @@
       "year": 1994,
       "cover": "/games/dragon-ball-z-buyuu-retsuden-mega-drive.webp",
       "igdbId": 2548,
-      "igdbUrl": "https://www.igdb.com/games/dragon-ball-z-buyuu-retsuden"
+      "igdbUrl": "https://www.igdb.com/games/dragon-ball-z-buyuu-retsuden",
+      "coverSource": "https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Dragon%20Ball%20Z%20-%20L'Appel%20du%20Destin%20(France).png"
     },
     {
       "id": "mighty-morphin-power-rangers-the-movie-mega-drive",
@@ -139,7 +151,8 @@
       "year": 1995,
       "cover": "/games/mighty-morphin-power-rangers-the-movie-mega-drive.webp",
       "igdbId": 75980,
-      "igdbUrl": "https://www.igdb.com/games/mighty-morphin-power-rangers-the-movie--1"
+      "igdbUrl": "https://www.igdb.com/games/mighty-morphin-power-rangers-the-movie--1",
+      "coverSource": "https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Mighty%20Morphin%20Power%20Rangers%20-%20The%20Movie%20(Europe).png"
     },
     {
       "id": "street-racer-mega-drive",
@@ -171,7 +184,8 @@
       "year": 1994,
       "cover": "/games/dynamite-headdy-mega-drive.webp",
       "igdbId": 22744,
-      "igdbUrl": "https://www.igdb.com/games/dynamite-headdy"
+      "igdbUrl": "https://www.igdb.com/games/dynamite-headdy",
+      "coverSource": "https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Dynamite%20Headdy%20(Europe).png"
     },
     {
       "id": "toy-story-mega-drive",

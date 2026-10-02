@@ -7,22 +7,22 @@
 #    app/collection/games.json, e.g. the-lion-king-mega-drive). It wins over IGDB's cover.
 title,platform,note,igdb_id,cover_url
 Sonic the Hedgehog,Mega Drive,,,https://morguefile.wiki/wiki/images/a/a4/Sonic_1_Mega_Drive_cover_art_EU.jpg
-The Lion King,Mega Drive,,,
-Sonic & Knuckles,Mega Drive,,,
-International Superstar Soccer Deluxe,Mega Drive,,,
-The Jungle Book,Mega Drive,,,
-QuackShot Starring Donald Duck,Mega Drive,,,
-Castle of Illusion Starring Mickey Mouse,Mega Drive,,,
-Jurassic Park,Mega Drive,,,
-Asterix and the Great Rescue,Mega Drive,,,
-FIFA Soccer 97,Mega Drive,,,
-Wimbledon Championship Tennis,Mega Drive,,,
-Mega Games 1,Mega Drive,,,
-Dragon Ball Z: Buyuu Retsuden,Mega Drive,,,
-Mighty Morphin Power Rangers: The Movie,Mega Drive,,,
+The Lion King,Mega Drive,,,https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Lion%20King%2C%20The%20(Europe).png
+Sonic & Knuckles,Mega Drive,,,https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Sonic%20_%20Knuckles%20(Europe).png
+International Superstar Soccer Deluxe,Mega Drive,,,https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/International%20Superstar%20Soccer%20Deluxe%20(Europe).png
+The Jungle Book,Mega Drive,,,https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Jungle%20Book%2C%20The%20(Europe).png
+QuackShot Starring Donald Duck,Mega Drive,,,https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/QuackShot%20Starring%20Donald%20Duck%20(World).png
+Castle of Illusion Starring Mickey Mouse,Mega Drive,,,https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Castle%20of%20Illusion%20Starring%20Mickey%20Mouse%20(USA%2C%20Europe).png
+Jurassic Park,Mega Drive,,,https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Jurassic%20Park%20(Europe).png
+Asterix and the Great Rescue,Mega Drive,,,https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Asterix%20and%20the%20Great%20Rescue%20(Europe)%20(En%2CFr%2CDe%2CEs%2CIt).png
+FIFA Soccer 97,Mega Drive,,,https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/FIFA%20Soccer%2097%20(USA%2C%20Europe)%20(En%2CFr%2CDe%2CEs%2CIt%2CSv).png
+Wimbledon Championship Tennis,Mega Drive,,,https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Wimbledon%20Championship%20Tennis%20(Europe).png
+Mega Games 1,Mega Drive,,,https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Mega%20Games%20I%20(Europe).png
+Dragon Ball Z: Buyuu Retsuden,Mega Drive,,,https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Dragon%20Ball%20Z%20-%20L'Appel%20du%20Destin%20(France).png
+Mighty Morphin Power Rangers: The Movie,Mega Drive,,,https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Mighty%20Morphin%20Power%20Rangers%20-%20The%20Movie%20(Europe).png
 Street Racer,Mega Drive,,,https://superretro.com.au/cdn/shop/files/street-racer-mega-drive-54818-6747580_1600x.png?v=1762326396
 Sonic the Hedgehog 2,Mega Drive,,,https://superretro.com.au/cdn/shop/products/sonic-the-hedgehog-2-mega-drive-107115-633677_1024x.jpg?v=1681381917
-Dynamite Headdy,Mega Drive,,,
+Dynamite Headdy,Mega Drive,,,https://raw.githubusercontent.com/libretro-thumbnails/Sega_-_Mega_Drive_-_Genesis/master/Named_Boxarts/Dynamite%20Headdy%20(Europe).png
 Toy Story,Mega Drive,,,https://greenhillszone.com/wp-content/uploads/2015/03/toy-story.jpg
 Assassin's Creed Valhalla,PS4,,,
 Ghost of Tsushima,PS4,,,
