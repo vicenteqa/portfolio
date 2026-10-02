@@ -2,6 +2,8 @@
 #  - platform: one of  Mega Drive | PS4 | PS5 | Xbox 360 | Switch | Switch 2
 #  - note:     free text shown on the shelf (edition, region, "complete in box"...)
 #  - igdb_id:  only to force a specific IGDB entry when the automatic match is wrong
+#  - your own cover: put an image in data/covers/<id>.jpg|png|webp (the id is the game's "id" in
+#    app/collection/games.json, e.g. the-lion-king-mega-drive). It wins over IGDB's cover.
 title,platform,note,igdb_id
 Sonic the Hedgehog,Mega Drive,,
 The Lion King,Mega Drive,,
@@ -23,7 +25,6 @@ Dynamite Headdy,Mega Drive,,
 Toy Story,Mega Drive,,
 Assassin's Creed Valhalla,PS4,,
 Ghost of Tsushima,PS4,,
-Grand Theft Auto: The Trilogy - The Definitive Edition,PS4,,
 The Last of Us Part II,PS4,,
 Shadow of the Colossus,PS4,,
 Uncharted 4: A Thief's End,PS4,,

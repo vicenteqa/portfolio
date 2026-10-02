@@ -201,16 +201,6 @@
       "igdbUrl": "https://www.igdb.com/games/ghost-of-tsushima"
     },
     {
-      "id": "grand-theft-auto-the-trilogy-the-definitive-edition-ps4",
-      "title": "Grand Theft Auto: The Trilogy - The Definitive Edition",
-      "platform": "PS4",
-      "note": null,
-      "year": 2021,
-      "cover": "/games/grand-theft-auto-the-trilogy-the-definitive-edition-ps4.webp",
-      "igdbId": 53070,
-      "igdbUrl": "https://www.igdb.com/games/grand-theft-auto-the-trilogy-the-definitive-edition--1"
-    },
-    {
       "id": "the-last-of-us-part-ii-ps4",
       "title": "The Last of Us Part II",
       "platform": "PS4",
