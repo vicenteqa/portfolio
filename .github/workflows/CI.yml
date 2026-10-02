@@ -7,7 +7,9 @@ on:
     types:
       - opened
       - synchronize
+      - reopened
 jobs:
+  # "test" is the check required by the main-branch-protection ruleset: keep the name
   test:
     timeout-minutes: 20
     runs-on: ubuntu-latest
@@ -15,7 +17,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: lts/*
+          node-version: 22
+          cache: npm
       - name: Install dependencies
         run: npm ci
       - name: Install Playwright Browsers
@@ -28,3 +31,31 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 2
+
+  # The e2e tests run against `next dev`, which does not catch a broken
+  # production build. This does.
+  build:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+
+  # The site ships as a Docker image: make sure it still builds (no push).
+  docker:
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

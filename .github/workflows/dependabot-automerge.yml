@@ -1,0 +1,58 @@
+name: Dependabot automerge
+
+# Takes effect from the default branch (workflow_run always uses main's copy).
+on:
+  workflow_run:
+    workflows: [Continuous Integration]
+    types: [completed]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  automerge:
+    # the whole CI workflow (test + build + docker) must have passed
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ask Dependabot to merge after CI passes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          prs="$(gh api "repos/${REPOSITORY}/commits/${HEAD_SHA}/pulls" \
+            -H "Accept: application/vnd.github+json" \
+            --jq '.[] | select(.user.login == "dependabot[bot]" and .state == "open") | .number')"
+
+          if [ -z "$prs" ]; then
+            echo "No open Dependabot PRs found for ${HEAD_SHA}."
+            exit 0
+          fi
+
+          # Dependabot embeds the semver kind of each bump in the commit message
+          # as `update-type: version-update:semver-<kind>`. Only auto-merge when
+          # every bump in the commit is minor or patch, never a major one.
+          commit_message="$(gh api "repos/${REPOSITORY}/commits/${HEAD_SHA}" --jq '.commit.message')"
+          update_types="$(grep -oP 'update-type: version-update:semver-\K\w+' <<<"$commit_message" || true)"
+
+          if [ -z "$update_types" ]; then
+            echo "Skipping: no dependabot update-type metadata found on ${HEAD_SHA}."
+            exit 0
+          fi
+
+          if grep -qx "major" <<<"$update_types"; then
+            echo "Skipping: commit ${HEAD_SHA} includes a major version bump ($update_types)."
+            exit 0
+          fi
+
+          # Let Dependabot do the merge (not this workflow's token) so the
+          # required-check and ruleset rules apply to the same actor as any
+          # other Dependabot merge.
+          for pr in $prs; do
+            gh pr comment "$pr" --repo "$REPOSITORY" --body "@dependabot squash and merge"
+          done
