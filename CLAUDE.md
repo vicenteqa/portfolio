@@ -72,7 +72,7 @@ The Playwright config (playwright.config.ts) automatically starts the dev server
 
 ### API Architecture
 - **Legacy Pages API**: API routes in `pages/api/` directory (not App Router)
-- `pages/api/get-albums.js`: Spotify integration endpoint
+- `pages/api/get-albums.js`: thin GET-only endpoint over `lib/albums.js` (Spotify service: 1h cache, stale-if-error, 5 min failure cache, single in-flight refresh, page cap, only follows api.spotify.com URLs; unit-testable via injected `http`). nginx rate-limits `/api/` (5 r/s, burst 20) in `deploy/nginx/portfolio.conf`.
   - Refreshes OAuth token using refresh_token grant
   - Fetches all of the user's saved albums (pages of 50, following `next`)
   - Shuffles and returns them all; serves `app/music/music.json` if Spotify fails
