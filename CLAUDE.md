@@ -87,11 +87,11 @@ The Playwright config (playwright.config.ts) automatically starts the dev server
 - Images loaded from Spotify CDN (i.scdn.co)
 
 ### Contact Form
-- Posts to `app/api/contact/route.js` (nodemailer over SMTP)
+- Posts to `app/api/contact/route.js` (nodemailer over SMTP, Gmail app password). Validation, escaping and the mail body live in `lib/contact.js`; the route adds a honeypot (`bot-field`) and a per-IP limit (5/hour, in memory). Messages go to `CONTACT_EMAIL`; the visitor is in Reply-To.
 - Form clears after successful submission
 - Includes client-side validation with real-time error feedback
 - Custom toast notifications for success/error states
-- Environment variables: SMTP_USER, SMTP_PASS (required), SMTP_HOST, SMTP_PORT, CONTACT_EMAIL (optional)
+- Environment variables: SMTP_USER, SMTP_PASS (required), SMTP_HOST (default smtp.gmail.com), SMTP_PORT (default 465), CONTACT_EMAIL (default SMTP_USER)
 
 ### Environment Variables
 Required in `.env.local`:

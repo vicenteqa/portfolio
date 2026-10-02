@@ -71,6 +71,7 @@ const Contact = () => {
     phone: '',
     topic: '',
     message: '',
+    'bot-field': '',
   });
 
   const [errors, setErrors] = useState({});
@@ -147,7 +148,7 @@ const Contact = () => {
   const validateForm = () => {
     const newErrors = {};
     Object.keys(formData).forEach((key) => {
-      if (key !== 'phone') {
+      if (key !== 'phone' && key !== 'bot-field') {
         // phone is optional
         const error = validateField(key, formData[key]);
         if (error) newErrors[key] = error;
@@ -204,18 +205,24 @@ const Contact = () => {
           phone: '',
           topic: '',
           message: '',
+          'bot-field': '',
         });
         setTouched({});
         setErrors({});
       } else {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to send message');
+        const err = new Error(errorData.message || 'Failed to send message');
+        // validation / rate-limit answers are safe and useful to show as they are
+        err.userFacing = response.status < 500;
+        throw err;
       }
     } catch (error) {
       console.error('Submission error:', error);
       setToast({
         show: true,
-        message: 'Failed to send message. Please try again later.',
+        message: error.userFacing
+          ? error.message
+          : 'Failed to send message. Please try again later.',
         type: 'error',
       });
     } finally {
@@ -291,6 +298,20 @@ const Contact = () => {
           onSubmit={handleSubmit}
         >
           <div className="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r from-accent via-amber to-accent" />
+
+          {/* honeypot: hidden from people, bots tend to fill it in */}
+          <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+            <label htmlFor="bot-field">Leave this field empty</label>
+            <input
+              id="bot-field"
+              type="text"
+              name="bot-field"
+              tabIndex={-1}
+              autoComplete="off"
+              value={formData['bot-field']}
+              onChange={handleChange}
+            />
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Field id="firstname" label="First name" required error={invalid('firstname')} icon={FaUser}>
