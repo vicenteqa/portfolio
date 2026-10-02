@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
-import { motion, useReducedMotion } from 'framer-motion';
+import { useReducedMotion } from 'framer-motion';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import data from '@/app/collection/games.json';
 
@@ -28,21 +28,18 @@ const wood = `repeating-linear-gradient(to bottom,
   #5a381f ${ROW - BOARD + 2}px ${ROW - 2}px,
   #160d07 ${ROW - 2}px ${ROW}px)`;
 
-const Case = ({ game, selected, onSelect, index, reduce }) => {
+const Case = ({ game, selected, onSelect, index }) => {
   const [from, to] = TINT[game.platform];
   return (
     <div className="flex items-end pb-[14px]" style={{ height: ROW }}>
-      <motion.button
+      <button
         type="button"
         onClick={() => onSelect(game)}
         aria-label={`${game.title}, ${game.platform}`}
         aria-pressed={selected}
         title={game.title}
-        initial={reduce ? false : { opacity: 0, y: 14 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '0px 0px -40px 0px' }}
-        transition={{ duration: 0.35, delay: Math.min(index, 12) * 0.03 }}
-        className={`group relative block w-[112px] h-[158px] rounded-[3px] outline-none transition-all duration-200 hover:-translate-y-2 hover:-rotate-1 focus-visible:-translate-y-2 focus-visible:ring-2 focus-visible:ring-accent ${
+        style={{ animationDelay: `${Math.min(index, 10) * 30}ms` }}
+        className={`case-in group relative block w-[112px] h-[158px] rounded-[3px] outline-none transition-[transform,box-shadow] duration-200 hover:-translate-y-2 hover:-rotate-1 focus-visible:-translate-y-2 focus-visible:ring-2 focus-visible:ring-accent ${
           selected ? '-translate-y-2 ring-2 ring-accent' : ''
         } shadow-[3px_4px_0_rgba(0,0,0,0.5)] hover:shadow-[5px_8px_0_rgba(0,0,0,0.45)]`}
       >
@@ -53,6 +50,7 @@ const Case = ({ game, selected, onSelect, index, reduce }) => {
             width={264}
             height={374}
             unoptimized
+            decoding="async"
             draggable={false}
             className="w-full h-full object-cover rounded-[3px]"
           />
@@ -72,7 +70,7 @@ const Case = ({ game, selected, onSelect, index, reduce }) => {
         {/* spine edge and gloss */}
         <span className="pointer-events-none absolute inset-y-0 left-0 w-[6px] rounded-l-[3px] bg-gradient-to-r from-black/45 to-transparent" />
         <span className="pointer-events-none absolute inset-0 rounded-[3px] bg-gradient-to-br from-white/15 via-transparent to-black/20" />
-      </motion.button>
+      </button>
     </div>
   );
 };
@@ -123,7 +121,10 @@ const ShelfRow = ({ shelf, selected, onSelect, startIndex, reduce }) => {
   };
 
   return (
-    <section aria-label={`${shelf.platform} shelf`}>
+    <section
+      aria-label={`${shelf.platform} shelf`}
+      style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 250px' }}
+    >
       <div className="mb-2 flex items-center justify-between">
         <h2 className="inline-block rounded-sm border border-amber/40 bg-amber/10 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.2em] text-amber">
           {shelf.platform} · {shelf.games.length}
@@ -174,7 +175,6 @@ const ShelfRow = ({ shelf, selected, onSelect, startIndex, reduce }) => {
                 <Case
                   game={g}
                   index={startIndex + i}
-                  reduce={reduce}
                   selected={selected?.id === g.id}
                   onSelect={onSelect}
                 />
@@ -232,23 +232,23 @@ const GameShelf = () => {
         ))}
       </div>
 
-      {/* label of the selected case */}
+      {/* label of the selected case: fixed height so the shelves below never move */}
       <div
-        className="mb-6 min-h-[92px] rounded-md border border-white/10 bg-primary/70 p-4 font-mono text-[13px] leading-6"
+        className="mb-6 h-[156px] overflow-hidden rounded-md border border-white/10 bg-primary/70 p-4 font-mono text-[13px] leading-6"
         aria-live="polite"
       >
         {selected ? (
           <>
-            <p className="text-white/40">
+            <p className="truncate text-white/40">
               <span className="text-success">vicente@portfolio</span>:
               <span className="text-accent">~/collection/games</span>$ cat{' '}
               {selected.id}.txt
             </p>
-            <p>
+            <p className="line-clamp-2">
               <span className="text-white/40">title:    </span>
               <span className="text-white">{selected.title}</span>
             </p>
-            <p>
+            <p className="truncate">
               <span className="text-white/40">platform: </span>
               <span className="text-accent">{selected.platform}</span>
               {selected.year && (
@@ -259,7 +259,7 @@ const GameShelf = () => {
               )}
             </p>
             {selected.note && (
-              <p>
+              <p className="truncate">
                 <span className="text-white/40">note:     </span>
                 {selected.note}
               </p>

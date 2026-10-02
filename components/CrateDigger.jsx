@@ -273,6 +273,9 @@ const CrateDigger = ({ albums }) => {
             const isActive = d === 0;
             const isPulled = isActive && pulled;
 
+            // sleeves further back are darkened with an opacity layer: far cheaper to
+            // animate than a CSS filter on 9 images at once
+            const dim = d < 0 ? 0.4 : isActive ? 0 : d * 0.09;
             let target;
             if (d < 0) {
               // flipped forward, falling toward the viewer
@@ -281,7 +284,6 @@ const CrateDigger = ({ albums }) => {
                 rotateX: -80,
                 scale: 1,
                 opacity: 0,
-                filter: 'brightness(0.6)',
               };
             } else if (isActive) {
               target = {
@@ -289,7 +291,6 @@ const CrateDigger = ({ albums }) => {
                 rotateX: 0,
                 scale: isPulled ? 1.04 : 1,
                 opacity: 1,
-                filter: 'brightness(1)',
               };
             } else {
               target = {
@@ -297,7 +298,6 @@ const CrateDigger = ({ albums }) => {
                 rotateX: 0,
                 scale: 1 - d * 0.035,
                 opacity: 1,
-                filter: `brightness(${1 - d * 0.09})`,
               };
             }
 
@@ -350,6 +350,13 @@ const CrateDigger = ({ albums }) => {
                       {album.name}
                     </span>
                   </div>
+                  <motion.span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 bg-black"
+                    initial={false}
+                    animate={{ opacity: dim }}
+                    transition={spring}
+                  />
                 </div>
               </motion.button>
             );

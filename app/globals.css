@@ -177,3 +177,22 @@
   .route-run { display: none; }
   .route-in { animation: none; }
 }
+
+/* games shelf: cheap entrance (CSS only, no observers) */
+@keyframes case-in {
+  from { opacity: 0; transform: translateY(14px); }
+}
+.case-in {
+  animation: case-in 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+}
+
+/* Phones and tablets: the film grain (a full-screen blend layer) and the fixed
+   background are repainted on every scroll frame and make scrolling janky. */
+@media (hover: none), (max-width: 1023px) {
+  body {
+    background-attachment: scroll;
+  }
+  body::after {
+    display: none;
+  }
+}
