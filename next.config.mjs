@@ -1,10 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  env: {
-    SPOTIFY_CLIENT_ID: process.env.SPOTIFY_CLIENT_ID,
-    SPOTIFY_CLIENT_SECRET: process.env.SPOTIFY_CLIENT_SECRET,
-    SPOTIFY_REFRESH_TOKEN: process.env.SPOTIFY_REFRESH_TOKEN,
+  // self-contained server for the Docker image (see Dockerfile)
+  output: 'standalone',
+  async redirects() {
+    // the music page became the collection page
+    return [{ source: '/music', destination: '/collection', permanent: true }];
   },
   images: {
     remotePatterns: [

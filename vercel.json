@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "vicenteruiz.vercel.app" }],
+      "destination": "https://vicenteruiz.ddnsfree.com/$1",
+      "permanent": false
+    }
+  ]
+}

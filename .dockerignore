@@ -1,0 +1,15 @@
+node_modules
+.next
+.git
+.github
+.env
+.env*.local
+tests
+playwright-report
+test-results
+page-object
+deploy
+scripts
+*.md
+Dockerfile
+.dockerignore

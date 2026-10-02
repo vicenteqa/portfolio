@@ -1,28 +1,46 @@
-import { Fira_Code } from 'next/font/google';
+import { Bricolage_Grotesque, Hanken_Grotesk, Fira_Code } from 'next/font/google';
 import './globals.css';
 
 //Components
 import Header from '@/components/Header';
-import PageTransition from '@/components/PageTransition';
-import StairTransition from '@/components/StairTransition';
+import StatusBar from '@/components/StatusBar';
+import CommandPalette from '@/components/CommandPalette';
+import Analytics from '@/components/Analytics';
 
-const firaCode = Fira_Code({
+const display = Bricolage_Grotesque({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-firaCode',
+  variable: '--font-display',
+  display: 'swap',
+});
+
+const body = Hanken_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-body',
+  display: 'swap',
+});
+
+const mono = Fira_Code({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-mono',
+  display: 'swap',
 });
 
 export const metadata = {
   title: 'Vicente Ruiz - Portfolio',
+  description:
+    'Software Development Engineer in Test. Test automation, quality engineering and a vinyl collection.',
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={firaCode.variable}>
+      <body className={`${display.variable} ${body.variable} ${mono.variable}`}>
         <Header />
-        <StairTransition></StairTransition>
-        <PageTransition>{children}</PageTransition>
+        <main className="relative pb-14">{children}</main>
+        <StatusBar />
+        <CommandPalette />
+        <Analytics />
       </body>
     </html>
   );
