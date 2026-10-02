@@ -1,23 +1,14 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import React, { useState } from 'react';
-
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-
-import { BsArrowUpRight, BsGithub } from 'react-icons/bs';
-
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
-
-import Link from 'next/link';
+import { useState } from 'react';
 import Image from 'next/image';
-import WorkSliderBtns from '@/components/WorkSliderBtns';
+import { AnimatePresence, motion } from 'framer-motion';
+import { BsArrowUpRight, BsGithub } from 'react-icons/bs';
+import { PiCaretLeftBold, PiCaretRightBold } from 'react-icons/pi';
+
+import PageHeader from '@/components/PageHeader';
+import WindowBar from '@/components/WindowBar';
+import { Button } from '@/components/ui/button';
 
 const projects = [
   {
@@ -51,117 +42,145 @@ const projects = [
 ];
 
 const FunStuff = () => {
-  const [project, setProject] = useState(projects[0]);
-  const handleSlideChange = (swiper) => {
-    // get the current slide index
-    const currentIndex = swiper.activeIndex;
-    // update project state based on the current slide index
-    setProject(projects[currentIndex]);
-  };
+  const [[index, dir], setPage] = useState([0, 1]);
+  const project = projects[index];
+
+  const go = (delta) =>
+    setPage(([i]) => [(i + delta + projects.length) % projects.length, delta]);
+
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{
-        opacity: 1,
-        transition: { delay: 2.4, duration: 0.4, ease: 'easeIn' },
+    <section
+      className="container mx-auto pb-12 outline-none"
+      tabIndex={-1}
+      onKeyDown={(e) => {
+        if (e.key === 'ArrowRight') go(1);
+        if (e.key === 'ArrowLeft') go(-1);
       }}
-      className="min-h-[80vh] flex flex-col justify-center py-12 xl:px-0"
     >
-      <div className="container mx-auto">
-        <div className="flex flex-col xl:flex-row xl:gap-[30px]">
-          <div className="w-full xl:w-[50%] xl:h-[460px] flex flex-col xl:justify-between order-2 xl:order-none">
-            <div className="flex flex-col gap-[30px] h-[50%]">
-              {/*outline num*/}
-              <div className="text-8xl leading-none font-extrabold text-transparent text-outline">
-                {project.num}
+      <PageHeader
+        label="fun stuff"
+        intro="Things I build when nobody is paying me to."
+      >
+        Side <span className="text-accent">quests</span>
+      </PageHeader>
+
+      <div className="grid xl:grid-cols-2 gap-10 xl:gap-16 items-center">
+        {/* case file */}
+        <div className="order-2 xl:order-none min-h-[380px]">
+          <AnimatePresence mode="wait" initial={false} custom={dir}>
+            <motion.div
+              key={project.num}
+              custom={dir}
+              initial={{ opacity: 0, x: 30 * dir }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -30 * dir }}
+              transition={{ duration: 0.3 }}
+              className="flex flex-col gap-6"
+            >
+              <div className="flex items-end gap-5">
+                <span className="font-display text-[110px] leading-[0.8] font-extrabold text-transparent text-outline">
+                  {project.num}
+                </span>
+                <span className="font-mono text-xs text-white/40 pb-1">
+                  / {String(projects.length).padStart(2, '0')}
+                </span>
               </div>
-              {/*project title*/}
-              <h2 className="text-[42px] font-bold leading-none text-white group-hover:text-accent transition-all duration-500 capitalize">
+              <h2 className="font-display text-3xl xl:text-5xl font-bold leading-[1.05]">
                 {project.title}
               </h2>
-              {/*project description*/}
-              <p className="text-white/60">{project.description}</p>
-              {/* stack*/}
-              <ul className="flex gap-4">
-                {project.stack.map((item, index) => (
-                  <li key={index} className="text-xl text-accent">
+              <p className="text-white/65 text-lg max-w-[520px]">{project.description}</p>
+              <ul className="flex flex-wrap gap-2">
+                {project.stack.map((item) => (
+                  <li
+                    key={item.name}
+                    className="font-mono text-xs px-3 py-1.5 rounded-md border border-accent/30 bg-accent/10 text-accent"
+                  >
                     {item.name}
-                    {/* remove the last comma*/}
-                    {index !== project.stack.length - 1 && ','}
                   </li>
                 ))}
               </ul>
-              {/*border*/}
-              <div className="border border-white/20"></div>
-              {/*buttons*/}
-              <div className="flex items-center gap-4">
-                {/* live project button */}
+              <div className="flex flex-wrap gap-3 pt-2">
                 {project.article && (
-                  <Link href={project.article}>
-                    <TooltipProvider delayDuration={100}>
-                      <Tooltip>
-                        <TooltipTrigger className="w-[70px] h-[70px] rounded-full bg-white/5 flex justify-center items-center group">
-                          <BsArrowUpRight className="text-white text-3xl group-hover:text-accent" />
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Article</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </Link>
+                  <Button asChild variant="outline">
+                    <a href={project.article} target="_blank" rel="noopener noreferrer">
+                      Read the article <BsArrowUpRight />
+                    </a>
+                  </Button>
                 )}
-                {/* github project button */}
-                <Link href={project.github}>
-                  <TooltipProvider delayDuration={100}>
-                    <Tooltip>
-                      <TooltipTrigger className="w-[70px] h-[70px] rounded-full bg-white/5 flex justify-center items-center group">
-                        <BsGithub className="text-white text-3xl group-hover:text-accent" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Github repository</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </Link>
+                <Button asChild variant="primary">
+                  <a href={project.github} target="_blank" rel="noopener noreferrer">
+                    <BsGithub /> Source
+                  </a>
+                </Button>
               </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* browser-window preview */}
+        <div>
+          <div className="rounded-md border border-white/10 bg-primary overflow-hidden shadow-[8px_8px_0_0_rgba(0,0,0,0.45)]">
+            <WindowBar title={project.github.replace('https://', '')} />
+            <div className="relative aspect-[16/10] bg-ink">
+              <AnimatePresence initial={false}>
+                <motion.div
+                  key={project.image}
+                  initial={{ opacity: 0, scale: 1.04 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.4 }}
+                  className="absolute inset-0"
+                >
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    sizes="(min-width: 1200px) 560px, 92vw"
+                    className="object-cover"
+                  />
+                </motion.div>
+              </AnimatePresence>
             </div>
           </div>
-          <div className="w-full xl:w-[50%]">
-            <Swiper
-              spaceBetween={30}
-              slidesPerView={1}
-              className="xl:h-[520px] mb-12"
-              onSlideChange={handleSlideChange}
-            >
-              {projects.map((project, index) => {
-                return (
-                  <SwiperSlide key={index} className="w-full">
-                    <div className="h-[460px] relative group flex justify-center items-center ">
-                      {/* overlay */}
-                      <div className="absolute top-0 bottom-0 w-full h-full bg-black/10 z-10 border-10 rounded-xl"></div>
-                      {/* image */}
-                      <div className="relative w-full h-full border-[5px] border-accent rounded-xl overflow-hidden">
-                        <Image
-                          src={project.image}
-                          fill
-                          className="object-cover"
-                          alt=""
-                        ></Image>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                );
-              })}
-              {/* buttons */}
-              <WorkSliderBtns
-                containerStyles="flex gap-2 absolute right-0 bottom-[calc(50%_-_22px)] xl:bottom-0 z-20 w-full justify-between xl:w-max xl:justify-none"
-                btnStyles="bg-accent hover:bg-accent-hover text-primary text-[22px] w-[44px] h-[44px] flex justify-center items-center transition-all"
-              />
-            </Swiper>
+
+          <div className="mt-5 flex items-center justify-between">
+            <div className="flex gap-2" role="tablist" aria-label="Projects">
+              {projects.map((p, i) => (
+                <button
+                  key={p.num}
+                  type="button"
+                  role="tab"
+                  aria-selected={i === index}
+                  aria-label={p.title}
+                  onClick={() => setPage([i, i > index ? 1 : -1])}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    i === index ? 'w-10 bg-accent' : 'w-5 bg-white/20 hover:bg-white/40'
+                  }`}
+                />
+              ))}
+            </div>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => go(-1)}
+                aria-label="Previous project"
+                className="w-11 h-11 rounded border border-white/15 flex items-center justify-center text-white/70 hover:border-accent hover:text-accent transition-colors"
+              >
+                <PiCaretLeftBold />
+              </button>
+              <button
+                type="button"
+                onClick={() => go(1)}
+                aria-label="Next project"
+                className="w-11 h-11 rounded border border-white/15 flex items-center justify-center text-white/70 hover:border-accent hover:text-accent transition-colors"
+              >
+                <PiCaretRightBold />
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </motion.div>
+    </section>
   );
 };
 

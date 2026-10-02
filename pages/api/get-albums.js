@@ -1,4 +1,5 @@
 import axios from 'axios';
+import fallbackAlbums from '../../app/music/music.json';
 
 const clientId = process.env.SPOTIFY_CLIENT_ID;
 const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
@@ -8,6 +9,8 @@ let cachedToken = null;
 let tokenExpiryTime = null;
 let cachedAlbums = null;
 let albumsExpiryTime = null;
+
+const shuffle = (list) => [...list].sort(() => Math.random() - 0.5);
 
 async function refreshAccessToken() {
   // Return cached token if still valid
@@ -53,7 +56,6 @@ async function getFavoriteAlbums() {
     return;
   }
 
-  const albumsUrl = 'https://api.spotify.com/v1/me/albums?limit=50';
   const options = {
     headers: {
       Authorization: `Bearer ${tokenData.access_token}`,
@@ -61,8 +63,15 @@ async function getFavoriteAlbums() {
   };
 
   try {
-    const response = await axios.get(albumsUrl, options);
-    return response.data.items;
+    // Spotify caps a page at 50 items, so follow `next` until the library ends
+    const items = [];
+    let url = 'https://api.spotify.com/v1/me/albums?limit=50';
+    while (url) {
+      const response = await axios.get(url, options);
+      items.push(...response.data.items);
+      url = response.data.next;
+    }
+    return items;
   } catch (error) {
     console.log(
       'Error getting favorite albums:',
@@ -76,7 +85,7 @@ export async function getFavoriteAlbumsSpecificData() {
   // Check if we have fresh cached albums (cache for 1 hour)
   if (cachedAlbums && albumsExpiryTime && Date.now() < albumsExpiryTime) {
     // Return a shuffled slice of cached data to maintain the "discovery" feel
-    return [...cachedAlbums].sort(() => Math.random() - 0.5).slice(0, 35);
+    return shuffle(cachedAlbums);
   }
 
   const favoriteAlbums = await getFavoriteAlbums();
@@ -99,14 +108,16 @@ export async function getFavoriteAlbumsSpecificData() {
     albumsExpiryTime = Date.now() + 60 * 60 * 1000;
 
     // Return shuffled slice
-    return [...albums].sort(() => Math.random() - 0.5).slice(0, 35);
+    return shuffle(albums);
   }
   return null;
 }
 
 export default async function handler(req, res) {
   try {
-    const albums = await getFavoriteAlbumsSpecificData();
+    const albums =
+      (await getFavoriteAlbumsSpecificData()) ||
+      shuffle(fallbackAlbums);
     if (albums) {
       // Set browser cache for 1 hour, but allow revalidation
       res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=59');

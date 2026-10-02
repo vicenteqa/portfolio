@@ -32,7 +32,7 @@ export const Toast = ({ message, type = 'success', onClose, isVisible }) => {
           className="fixed top-6 right-6 z-50 max-w-md"
         >
           <div
-            className={`${bgColor} ${borderColor} backdrop-blur-xl border-2 rounded-2xl p-5 shadow-2xl flex items-start gap-4 relative overflow-hidden`}
+            className={`${bgColor} ${borderColor} border-2 rounded-md p-5 shadow-2xl flex items-start gap-4 relative overflow-hidden`}
           >
             {/* Gradient background overlay */}
             <div
@@ -54,7 +54,7 @@ export const Toast = ({ message, type = 'success', onClose, isVisible }) => {
             {/* Close button */}
             <button
               onClick={onClose}
-              className="relative text-white/60 hover:text-white transition-colors duration-200 p-1 hover:bg-white/10 rounded-lg"
+              className="relative text-white/60 hover:text-white transition-colors duration-200 p-1 hover:bg-white/10 rounded"
             >
               <FaTimes />
             </button>

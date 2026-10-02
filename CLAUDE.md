@@ -51,58 +51,56 @@ The Playwright config (playwright.config.ts) automatically starts the dev server
 ### Framework & Routing
 - **Next.js 15** with App Router architecture
 - Pages are located in `app/` directory using the file-based routing convention
-- Routes: `/` (home), `/resume`, `/services`, `/contact`, `/music`, `/funStuff`
+- Routes: `/` (home), `/resume`, `/contact`, `/music` (`/funStuff` exists but is hidden from the nav until its content is updated; nav list lives in `lib/routes.js`)
 
 ### Component Structure
 - **UI Components**: Located in `components/ui/` - built with Radix UI primitives and styled with Tailwind
-- **Feature Components**: Located in `components/` - includes Header, Nav, PageTransition, StairTransition, Photo, Social, Stats
-- **Responsive Navigation**: Desktop nav in Nav.jsx, mobile nav in MobileNav.jsx (appears below xl breakpoint)
+- **Feature Components**: Located in `components/` - Header, Nav, MobileNav, CommandPalette (Ctrl/Cmd+K or `/`), StatusBar, PageHeader, HeroRecord, ReportCard, CrateDigger (music game)
+- **Responsive Navigation**: Desktop nav in Nav.jsx, mobile nav in MobileNav.jsx (below xl). MobileNav is a controlled Sheet that closes on route change: a portal sheet otherwise outlives client navigation and covers the new page.
 
 ### Styling & Theming
-- **Tailwind CSS** with custom configuration in tailwind.config.js
-- **Custom Colors**:
-  - Primary: `#15202b` (dark background)
-  - Accent: `#29d4ff` (cyan blue), hover: `#1d9bf0`
+- Concept: the site is a CI run. Mono labels (`// 02 resume`), pass/pending test rows, an editor-style status bar, terminal route curtain.
+- **Tailwind** config in tailwind.config.js. Tokens: `ink` (page bg), `primary` (navy panels), `accent` cyan `#29d4ff`, `amber`, `success`, `error`.
+- **Fonts** (next/font in app/layout.jsx, exposed as CSS vars): `font-display` Bricolage Grotesque, `font-body` Hanken Grotesk, `font-mono` Fira Code. Do not use undefined families/colors: Tailwind silently ignores unknown classes.
+- Global look (grid background, film grain, selection, `.eyebrow`, `.panel`) lives in app/globals.css.
 - **Breakpoints**: sm: 640px, md: 768px, lg: 960px, xl: 1200px
-- **Font**: Fira Code loaded via next/font/google
 - Uses `tailwind-merge` and `class-variance-authority` for dynamic styling
 
 ### Page Transitions
-- All pages wrapped in PageTransition component (Framer Motion)
-- StairTransition provides animated stair-step effect between route changes
-- Both components are client-side rendered ('use client' directive)
+- `app/template.jsx` re-mounts on each navigation and plays a pure-CSS "playwright test" curtain (`.route-run` in globals.css) plus a fade-in. No AnimatePresence/exit animations: nothing to wait on, nothing that can block clicks.
+- Header is `z-50`, curtain `z-40` with `pointer-events: none`.
 
 ### API Architecture
 - **Legacy Pages API**: API routes in `pages/api/` directory (not App Router)
 - `pages/api/get-albums.js`: Spotify integration endpoint
   - Refreshes OAuth token using refresh_token grant
-  - Fetches user's saved albums (limit 50)
-  - Shuffles and returns random subset of 35 albums
+  - Fetches all of the user's saved albums (pages of 50, following `next`)
+  - Shuffles and returns them all; serves `app/music/music.json` if Spotify fails
   - Cleans album names by removing parenthetical text (remaster info, etc.)
 
 ### Music Section
 - Displays albums from Spotify API via `/api/get-albums` endpoint
-- Falls back to static `music.json` if API fails
-- Random selection changes on each page reload
+- Falls back to static `music.json` if the API fails
+- Returns the whole library (follows Spotify pagination), shuffled on each request
+- UI is `components/CrateDigger.jsx`: a looping record crate (wheel/swipe/arrows). Pull a record out, drag it onto the turntable; the spinning record links to the album. No Spotify branding in the UI.
+- Spotify refresh tokens expire (app setting `refreshTokenTtlMillis`, ~180 days). Regenerate with `node --env-file=.env scripts/get-spotify-token.mjs` (needs redirect URI `http://127.0.0.1:4000/callback` registered).
 - Images loaded from Spotify CDN (i.scdn.co)
 
 ### Contact Form
-- Uses EmailJS for form submission (client-side email service)
+- Posts to `app/api/contact/route.js` (nodemailer over SMTP)
 - Form clears after successful submission
 - Includes client-side validation with real-time error feedback
 - Custom toast notifications for success/error states
-- Environment variables: EMAIL_SERVICE_ID, EMAIL_TEMPLATE_ID, EMAIL_SERVICE_UID
+- Environment variables: SMTP_USER, SMTP_PASS (required), SMTP_HOST, SMTP_PORT, CONTACT_EMAIL (optional)
 
 ### Environment Variables
 Required in `.env.local`:
 - `SPOTIFY_CLIENT_ID` - Spotify app client ID
 - `SPOTIFY_CLIENT_SECRET` - Spotify app secret
 - `SPOTIFY_REFRESH_TOKEN` - OAuth refresh token
-- `EMAIL_SERVICE_ID` - EmailJS service ID (exposed to client via next.config.mjs)
-- `EMAIL_TEMPLATE_ID` - EmailJS template ID (exposed to client via next.config.mjs)
-- `EMAIL_SERVICE_UID` - EmailJS user ID (exposed to client via next.config.mjs)
+- `SMTP_USER`, `SMTP_PASS` - mailbox used by `/api/contact` (optional: `SMTP_HOST`, `SMTP_PORT`, `CONTACT_EMAIL`)
 
-Note: These variables are made available to client components through the `env` configuration in `next.config.mjs`, not the `NEXT_PUBLIC_` prefix.
+Note: Spotify variables are exposed through the `env` block in `next.config.mjs`, not the `NEXT_PUBLIC_` prefix.
 
 ### Testing Strategy
 - **Playwright** for E2E testing
