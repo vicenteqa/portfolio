@@ -40,6 +40,7 @@ const Home = () => {
               <a
                 href="/assets/resume/vicente_cv_web.pdf"
                 download="vicente_cv_web.pdf"
+                data-umami-event="download-cv"
                 target="_blank"
                 rel="noopener noreferrer"
               >

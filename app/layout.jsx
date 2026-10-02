@@ -5,6 +5,7 @@ import './globals.css';
 import Header from '@/components/Header';
 import StatusBar from '@/components/StatusBar';
 import CommandPalette from '@/components/CommandPalette';
+import Analytics from '@/components/Analytics';
 
 const display = Bricolage_Grotesque({
   subsets: ['latin'],
@@ -39,6 +40,7 @@ export default function RootLayout({ children }) {
         <main className="relative pb-14">{children}</main>
         <StatusBar />
         <CommandPalette />
+        <Analytics />
       </body>
     </html>
   );

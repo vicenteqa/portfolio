@@ -518,6 +518,7 @@ const CrateDigger = ({ albums }) => {
                   rel="noopener noreferrer"
                   aria-label={`Open ${onPlatter.name} by ${onPlatter.artists}`}
                   title="Play"
+                  data-umami-event="open-album"
                   className="group absolute inset-[4%] rounded-full cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-accent transition-shadow hover:shadow-[0_0_0_2px_rgba(41,212,255,0.7),0_0_28px_rgba(41,212,255,0.35)]"
                 >
                   <Vinyl album={onPlatter} spinning={!reduce} />

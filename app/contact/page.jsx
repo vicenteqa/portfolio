@@ -198,6 +198,7 @@ const Contact = () => {
           message: "Message sent successfully! I'll get back to you soon.",
           type: 'success',
         });
+        window.umami?.track('contact-sent');
         setFormData({
           firstname: '',
           lastname: '',
