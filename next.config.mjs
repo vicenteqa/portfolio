@@ -8,6 +8,8 @@ const nextConfig = {
     return [{ source: '/music', destination: '/collection', permanent: true }];
   },
   images: {
+    // the home avatar asks for quality 100; Next 16.3 wants every quality listed
+    qualities: [75, 100],
     remotePatterns: [
       {
         protocol: 'https',
