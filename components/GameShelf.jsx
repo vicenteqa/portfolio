@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useReducedMotion } from 'framer-motion';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import data from '@/app/collection/games.json';
+import data from '@/app/music/games.json';
 
 // shelf order: roughly by generation
 const ORDER = ['Mega Drive', 'Xbox 360', 'PS4', 'Switch', 'PS5', 'Switch 2'];
@@ -241,7 +241,7 @@ const GameShelf = () => {
           <>
             <p className="truncate text-white/40">
               <span className="text-success">vicente@portfolio</span>:
-              <span className="text-accent">~/collection/games</span>$ cat{' '}
+              <span className="text-accent">~/music/games</span>$ cat{' '}
               {selected.id}.txt
             </p>
             <p className="line-clamp-2">
@@ -268,7 +268,7 @@ const GameShelf = () => {
         ) : (
           <p className="text-white/40">
             <span className="text-success">vicente@portfolio</span>:
-            <span className="text-accent">~/collection/games</span>$ ls{' '}
+            <span className="text-accent">~/music/games</span>$ ls{' '}
             <span className="animate-blink">_</span>
             <br />
             pick a game to read its label

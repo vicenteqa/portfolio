@@ -4,8 +4,8 @@ const nextConfig = {
   // self-contained server for the Docker image (see Dockerfile)
   output: 'standalone',
   async redirects() {
-    // the music page became the collection page
-    return [{ source: '/music', destination: '/collection', permanent: true }];
+    // the music page was briefly the collection page (vinyl + games; games hidden for now)
+    return [{ source: '/collection', destination: '/music', permanent: true }];
   },
   images: {
     remotePatterns: [

@@ -1,4 +1,4 @@
-// Builds app/collection/games.json from data/games.csv and, when IGDB
+// Builds app/music/games.json from data/games.csv and, when IGDB
 // credentials are available, fills in year + cover art.
 //
 //   node --env-file=.env scripts/sync-games.mjs            # only fetch what is missing
@@ -15,7 +15,7 @@ import { PLATFORMS, coverUrl, parseCsv, pickBest, slugify, yearOf } from './game
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const CSV = path.join(ROOT, 'data/games.csv');
-const OUT = path.join(ROOT, 'app/collection/games.json');
+const OUT = path.join(ROOT, 'app/music/games.json');
 const COVERS = path.join(ROOT, 'public/games');
 const OWN = path.join(ROOT, 'data/covers');
 
@@ -212,7 +212,7 @@ await mkdir(path.dirname(OUT), { recursive: true });
 await writeFile(OUT, JSON.stringify({ games }, null, 2) + '\n');
 
 const withCover = games.filter((g) => g.cover).length;
-console.log(`\n${games.length} games written to app/collection/games.json (${withCover} with cover).`);
+console.log(`\n${games.length} games written to app/music/games.json (${withCover} with cover).`);
 if (failedUrls.length) {
   console.log('\ncover_url failed (the IGDB cover is kept):');
   for (const f of failedUrls) console.log(`  "${f.g.title}" (${f.g.platform}): ${f.why} - ${f.url}`);
